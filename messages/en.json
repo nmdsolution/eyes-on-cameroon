@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "Who we are",
+    "news": "News",
+    "events": "Events",
+    "team": "Our Team",
+    "partners": "Partners",
+    "contact": "Contact",
+    "donate": "Donate"
+  },
+  "hero": {
+    "title": "Eyes on Cameroon",
+    "subtitle": "The bridge between Germany and Cameroon",
+    "cta_news": "Latest News",
+    "cta_about": "About Us"
+  },
+  "about": {
+    "title": "Who are we?",
+    "description": "Eyes on Cameroon is a non-profit organization dedicated to education, culture and exchange between Germany and Cameroon.",
+    "mission_title": "Our Mission",
+    "mission_text": "We promote dialogue between the two countries and support projects that improve the lives of people in Cameroon.",
+    "read_more": "Learn more"
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "Upcoming events and activities",
+    "no_events": "No upcoming events",
+    "all_events": "All events"
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "News from our organization",
+    "read_more": "Read more",
+    "all_articles": "All articles"
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "The people behind Eyes on Cameroon"
+  },
+  "partners": {
+    "title": "Our Partners",
+    "subtitle": "Together we are stronger"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with us",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "success": "Your message has been sent!",
+    "address": "Address"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "imprint": "Imprint",
+    "description": "A bridge between Germany and Cameroon"
+  },
+  "donate": {
+    "title": "Support us",
+    "description": "Your donation helps us fund our projects",
+    "button": "Donate now"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "back": "Back"
+  }
+}

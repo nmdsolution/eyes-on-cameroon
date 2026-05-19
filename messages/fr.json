@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "Qui sommes-nous",
+    "news": "Actualités",
+    "events": "Événements",
+    "team": "Notre équipe",
+    "partners": "Partenaires",
+    "contact": "Contact",
+    "donate": "Faire un don"
+  },
+  "hero": {
+    "title": "Eyes on Cameroon",
+    "subtitle": "Le pont entre l'Allemagne et le Cameroun",
+    "cta_news": "Actualités",
+    "cta_about": "À propos"
+  },
+  "about": {
+    "title": "Qui sommes-nous ?",
+    "description": "Eyes on Cameroon est une organisation à but non lucratif qui œuvre pour l'éducation, la culture et les échanges entre l'Allemagne et le Cameroun.",
+    "mission_title": "Notre mission",
+    "mission_text": "Nous favorisons le dialogue entre les deux pays et soutenons des projets qui améliorent la vie des populations au Cameroun.",
+    "read_more": "En savoir plus"
+  },
+  "events": {
+    "title": "Événements",
+    "subtitle": "Prochains événements et activités",
+    "no_events": "Aucun événement à venir",
+    "all_events": "Tous les événements"
+  },
+  "news": {
+    "title": "Actualités",
+    "subtitle": "Les nouvelles de notre organisation",
+    "read_more": "Lire la suite",
+    "all_articles": "Tous les articles"
+  },
+  "team": {
+    "title": "Notre équipe",
+    "subtitle": "Les personnes derrière Eyes on Cameroon"
+  },
+  "partners": {
+    "title": "Nos partenaires",
+    "subtitle": "Ensemble, nous sommes plus forts"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Prenez contact avec nous",
+    "name": "Nom",
+    "email": "E-mail",
+    "subject": "Sujet",
+    "message": "Message",
+    "send": "Envoyer",
+    "success": "Votre message a été envoyé !",
+    "address": "Adresse"
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "privacy": "Politique de confidentialité",
+    "imprint": "Mentions légales",
+    "description": "Un pont entre l'Allemagne et le Cameroun"
+  },
+  "donate": {
+    "title": "Soutenez-nous",
+    "description": "Votre don nous aide à financer nos projets",
+    "button": "Faire un don"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "back": "Retour"
+  }
+}

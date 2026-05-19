@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Wer sind wir",
+    "news": "Aktuelles",
+    "events": "Veranstaltungen",
+    "team": "Unser Team",
+    "partners": "Partner",
+    "contact": "Kontakt",
+    "donate": "Spenden"
+  },
+  "hero": {
+    "title": "Eyes on Cameroon",
+    "subtitle": "Verbindung zwischen Deutschland und Kamerun",
+    "cta_news": "Aktuelles",
+    "cta_about": "Über uns"
+  },
+  "about": {
+    "title": "Wer sind wir?",
+    "description": "Eyes on Cameroon ist eine gemeinnützige Organisation, die sich für Bildung, Kultur und den Austausch zwischen Deutschland und Kamerun einsetzt.",
+    "mission_title": "Unsere Mission",
+    "mission_text": "Wir fördern den Dialog zwischen den beiden Ländern und unterstützen Projekte, die das Leben der Menschen in Kamerun verbessern.",
+    "read_more": "Mehr erfahren"
+  },
+  "events": {
+    "title": "Veranstaltungen",
+    "subtitle": "Kommende Ereignisse und Aktivitäten",
+    "no_events": "Keine kommenden Veranstaltungen",
+    "all_events": "Alle Veranstaltungen"
+  },
+  "news": {
+    "title": "Aktuelles",
+    "subtitle": "Neuigkeiten aus unserer Organisation",
+    "read_more": "Weiterlesen",
+    "all_articles": "Alle Artikel"
+  },
+  "team": {
+    "title": "Unser Team",
+    "subtitle": "Die Menschen hinter Eyes on Cameroon"
+  },
+  "partners": {
+    "title": "Unsere Partner",
+    "subtitle": "Gemeinsam stärker"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Nehmen Sie Kontakt mit uns auf",
+    "name": "Name",
+    "email": "E-Mail",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "send": "Senden",
+    "success": "Ihre Nachricht wurde gesendet!",
+    "address": "Adresse"
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "description": "Eine Brücke zwischen Deutschland und Kamerun"
+  },
+  "donate": {
+    "title": "Unterstützen Sie uns",
+    "description": "Ihre Spende hilft uns, unsere Projekte zu finanzieren",
+    "button": "Jetzt spenden"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "back": "Zurück"
+  }
+}
