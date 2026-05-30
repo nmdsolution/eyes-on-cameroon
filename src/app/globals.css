@@ -10,6 +10,17 @@ body {
   color: var(--foreground);
 }
 
+/* Top banner marquee — text scrolls from right screen edge to left */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-scroll 18s linear infinite;
+}
+
 /* Prose utility for article content */
 .prose { max-width: 65ch; }
 .prose p { margin-bottom: 1.25em; line-height: 1.75; }

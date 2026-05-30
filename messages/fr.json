@@ -7,7 +7,60 @@
     "team": "Notre équipe",
     "partners": "Partenaires",
     "contact": "Contact",
-    "donate": "Faire un don"
+    "donate": "Faire un don",
+    "why": "Pourquoi",
+    "our_team": "Équipe",
+    "our_offers": "Nos offres",
+    "member": "Devenir membre",
+    "connexion": "Connexion",
+    "my_profile": "Mon profil"
+  },
+  "member_form": {
+    "title": "Devenir membre",
+    "subtitle": "Rejoignez l'association EyesOnCameroon eV",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "phone": "Téléphone (optionnel)",
+    "city": "Ville (optionnel)",
+    "motivation": "Pourquoi souhaitez-vous devenir membre ? (optionnel)",
+    "terms": "J'accepte les conditions d'utilisation",
+    "submit": "Créer mon compte",
+    "already_member": "Déjà membre ?",
+    "login_link": "Se connecter",
+    "success_title": "Vérifiez votre e-mail",
+    "success_text": "Un e-mail de confirmation vous a été envoyé. Cliquez sur le lien pour activer votre compte.",
+    "error_passwords": "Les mots de passe ne correspondent pas.",
+    "error_generic": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "login": {
+    "title": "Connexion",
+    "subtitle": "Accédez à votre espace membre",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "no_account": "Pas encore membre ?",
+    "join_link": "Rejoindre l'association",
+    "forgot": "Mot de passe oublié ?",
+    "error": "E-mail ou mot de passe incorrect."
+  },
+  "profile": {
+    "title": "Mon profil",
+    "member_since": "Membre depuis",
+    "personal_info": "Informations personnelles",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "city": "Ville",
+    "motivation": "Motivation",
+    "edit": "Modifier",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "logout": "Se déconnecter",
+    "saved": "Profil mis à jour avec succès."
   },
   "hero": {
     "title": "Eyes on Cameroon",
@@ -17,9 +70,9 @@
   },
   "about": {
     "title": "Qui sommes-nous ?",
-    "description": "Eyes on Cameroon est une organisation à but non lucratif qui œuvre pour l'éducation, la culture et les échanges entre l'Allemagne et le Cameroun.",
-    "mission_title": "Notre mission",
-    "mission_text": "Nous favorisons le dialogue entre les deux pays et soutenons des projets qui améliorent la vie des populations au Cameroun.",
+    "description": "EyesOnCameroon eV est une association à but non lucratif dont l'objectif principal est de présenter la diversité de la culture camerounaise en Allemagne.",
+    "activities_title": "Nos activités",
+    "activities_text": "Nos activités comprennent le théâtre, la danse, la musique, les défilés de mode, la littérature, les dégustations culinaires, les conseils touristiques, les forums, ainsi que d'autres particularités créatives et existantes du pays.",
     "read_more": "En savoir plus"
   },
   "events": {
@@ -63,6 +116,33 @@
     "title": "Soutenez-nous",
     "description": "Votre don nous aide à financer nos projets",
     "button": "Faire un don"
+  },
+  "offers": {
+    "title": "Nos offres",
+    "subtitle": "Ce que nous proposons à notre communauté et à nos partenaires",
+    "cultural_title": "Culturel",
+    "cultural_intro": "Découvrez la richesse de la culture camerounaise en Allemagne : notre organisation vous offre l'opportunité unique d'explorer les traditions, l'art, la musique et la cuisine du Cameroun.",
+    "cultural_text": "Nous organisons régulièrement des événements culturels, des expositions d'art, des concerts de musique traditionnelle et contemporaine, ainsi que des ateliers de cuisine pour vous faire découvrir les saveurs exotiques du Cameroun. Rejoignez-nous pour un voyage culturel inoubliable et enrichissez votre connaissance du patrimoine camerounais.",
+    "social_title": "Sociale",
+    "social_intro": "Solidarité et échanges sociaux : Notre organisation ne se limite pas aux découvertes culturelles, mais s'engage également à tisser des liens sociaux entre les communautés camerounaise et allemande.",
+    "social_text": "Nous organisons des programmes d'échange, des rencontres sociales et des activités de bénévolat pour promouvoir le dialogue interculturel, la compréhension mutuelle et le soutien. Ensemble, nous bâtissons des ponts d'amitié et de solidarité.",
+    "dev_title": "Politique de développement",
+    "dev_intro": "Promouvoir le développement durable : L'engagement en faveur du développement durable au Cameroun est au cœur de notre mission.",
+    "dev_text": "Nous travaillons avec des partenaires locaux pour soutenir des projets dans les domaines de l'éducation, de la santé, de l'agriculture durable et de la protection de l'environnement. En participant à nos activités, vous contribuez directement à l'amélioration des conditions de vie au Cameroun et à la promotion d'un développement équitable pour les populations et la nature.",
+    "contact_button": "Contact"
+  },
+  "why": {
+    "title": "Pourquoi Eyes on Cameroon ?",
+    "subtitle": "Les raisons qui nous ont poussés à créer cette organisation",
+    "reason1_title": "Intégration et compréhension internationale",
+    "reason1_text": "Il convient de promouvoir l'intégration des Camerounais résidant en Allemagne et la compréhension internationale.",
+    "reason2_title": "Jeter des ponts entre deux nations",
+    "reason2_text": "Il s'agit également de contribuer à jeter des ponts entre l'Allemagne et le Cameroun afin de soutenir des projets à but non lucratif à vocation sociale et culturelle ainsi que le développement du Cameroun.",
+    "vision_title": "Notre vision à long terme",
+    "vision_text": "À long terme, EyesOnCameroon ambitionne de devenir un acteur majeur de la promotion de cette diversité camerounaise, en s'appuyant sur la reconnaissance du caractère unique et de l'identité de notre diaspora en Allemagne.",
+    "cta_title": "Rejoignez-nous",
+    "cta_text": "Vous partagez cette vision ? Contribuez à notre mission en devenant membre, partenaire ou donateur.",
+    "cta_button": "Nous contacter"
   },
   "common": {
     "loading": "Chargement...",

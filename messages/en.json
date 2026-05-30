@@ -7,7 +7,60 @@
     "team": "Our Team",
     "partners": "Partners",
     "contact": "Contact",
-    "donate": "Donate"
+    "donate": "Donate",
+    "why": "Why",
+    "our_team": "Team",
+    "our_offers": "Our offers",
+    "member": "Become a member",
+    "connexion": "Login",
+    "my_profile": "My profile"
+  },
+  "member_form": {
+    "title": "Become a member",
+    "subtitle": "Join the EyesOnCameroon eV association",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "phone": "Phone (optional)",
+    "city": "City (optional)",
+    "motivation": "Why do you want to become a member? (optional)",
+    "terms": "I accept the terms of use",
+    "submit": "Create my account",
+    "already_member": "Already a member?",
+    "login_link": "Log in",
+    "success_title": "Check your email",
+    "success_text": "A confirmation email has been sent to you. Click the link to activate your account.",
+    "error_passwords": "Passwords do not match.",
+    "error_generic": "An error occurred. Please try again."
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Access your member area",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Log in",
+    "no_account": "Not a member yet?",
+    "join_link": "Join the association",
+    "forgot": "Forgot password?",
+    "error": "Incorrect email or password."
+  },
+  "profile": {
+    "title": "My profile",
+    "member_since": "Member since",
+    "personal_info": "Personal information",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "city": "City",
+    "motivation": "Motivation",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "logout": "Log out",
+    "saved": "Profile updated successfully."
   },
   "hero": {
     "title": "Eyes on Cameroon",
@@ -17,9 +70,9 @@
   },
   "about": {
     "title": "Who are we?",
-    "description": "Eyes on Cameroon is a non-profit organization dedicated to education, culture and exchange between Germany and Cameroon.",
-    "mission_title": "Our Mission",
-    "mission_text": "We promote dialogue between the two countries and support projects that improve the lives of people in Cameroon.",
+    "description": "EyesOnCameroon eV is a non-profit association whose main objective is to showcase the diversity of Cameroonian culture in Germany.",
+    "activities_title": "Our activities",
+    "activities_text": "Our activities include theatre, dance, music, fashion shows, literature, culinary tastings, tourist advice, forums, as well as other creative and distinctive features of the country.",
     "read_more": "Learn more"
   },
   "events": {
@@ -63,6 +116,33 @@
     "title": "Support us",
     "description": "Your donation helps us fund our projects",
     "button": "Donate now"
+  },
+  "offers": {
+    "title": "Our Offers",
+    "subtitle": "What we provide to our community and partners",
+    "cultural_title": "Cultural",
+    "cultural_intro": "Discover the richness of Cameroonian culture in Germany: our organisation offers you the unique opportunity to explore the traditions, art, music and cuisine of Cameroon.",
+    "cultural_text": "We regularly organise cultural events, art exhibitions, concerts of traditional and contemporary music, as well as cooking workshops to introduce you to the exotic flavours of Cameroon. Join us for an unforgettable cultural journey and enrich your knowledge of Cameroonian heritage.",
+    "social_title": "Social",
+    "social_intro": "Solidarity and social exchanges: Our organisation is not limited to cultural discoveries, but is also committed to forging social bonds between the Cameroonian and German communities.",
+    "social_text": "We organise exchange programmes, social gatherings and volunteering activities to promote intercultural dialogue, mutual understanding and support. Together, we build bridges of friendship and solidarity.",
+    "dev_title": "Development policy",
+    "dev_intro": "Promoting sustainable development: Commitment to sustainable development in Cameroon is at the heart of our mission.",
+    "dev_text": "We work with local partners to support projects in the fields of education, health, sustainable agriculture and environmental protection. By participating in our activities, you contribute directly to improving living conditions in Cameroon and promoting equitable development for people and nature.",
+    "contact_button": "Contact"
+  },
+  "why": {
+    "title": "Why Eyes on Cameroon?",
+    "subtitle": "The reasons that led us to create this organization",
+    "reason1_title": "Integration and international understanding",
+    "reason1_text": "It is important to promote the integration of Cameroonians living in Germany and foster international understanding.",
+    "reason2_title": "Building bridges between two nations",
+    "reason2_text": "It is also about helping to build bridges between Germany and Cameroon in order to support non-profit projects with a social and cultural purpose, as well as the development of Cameroon.",
+    "vision_title": "Our long-term vision",
+    "vision_text": "In the long term, EyesOnCameroon aims to become a major actor in promoting Cameroonian diversity, drawing on the recognition of the unique character and identity of our diaspora in Germany.",
+    "cta_title": "Join us",
+    "cta_text": "Do you share this vision? Contribute to our mission by becoming a member, partner or donor.",
+    "cta_button": "Contact us"
   },
   "common": {
     "loading": "Loading...",

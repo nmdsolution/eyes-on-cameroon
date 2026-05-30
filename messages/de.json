@@ -7,7 +7,60 @@
     "team": "Unser Team",
     "partners": "Partner",
     "contact": "Kontakt",
-    "donate": "Spenden"
+    "donate": "Spenden",
+    "why": "Warum",
+    "our_team": "Team",
+    "our_offers": "Unsere Angebote",
+    "member": "Mitglied werden",
+    "connexion": "Anmelden",
+    "my_profile": "Mein Profil"
+  },
+  "member_form": {
+    "title": "Mitglied werden",
+    "subtitle": "Treten Sie dem Verein EyesOnCameroon eV bei",
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "confirm_password": "Passwort bestätigen",
+    "phone": "Telefon (optional)",
+    "city": "Stadt (optional)",
+    "motivation": "Warum möchten Sie Mitglied werden? (optional)",
+    "terms": "Ich akzeptiere die Nutzungsbedingungen",
+    "submit": "Konto erstellen",
+    "already_member": "Bereits Mitglied?",
+    "login_link": "Anmelden",
+    "success_title": "Prüfen Sie Ihre E-Mail",
+    "success_text": "Eine Bestätigungs-E-Mail wurde Ihnen gesendet. Klicken Sie auf den Link, um Ihr Konto zu aktivieren.",
+    "error_passwords": "Die Passwörter stimmen nicht überein.",
+    "error_generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+  },
+  "login": {
+    "title": "Anmelden",
+    "subtitle": "Zugang zu Ihrem Mitgliederbereich",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "submit": "Anmelden",
+    "no_account": "Noch kein Mitglied?",
+    "join_link": "Dem Verein beitreten",
+    "forgot": "Passwort vergessen?",
+    "error": "E-Mail oder Passwort ist falsch."
+  },
+  "profile": {
+    "title": "Mein Profil",
+    "member_since": "Mitglied seit",
+    "personal_info": "Persönliche Daten",
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "city": "Stadt",
+    "motivation": "Motivation",
+    "edit": "Bearbeiten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "logout": "Abmelden",
+    "saved": "Profil erfolgreich aktualisiert."
   },
   "hero": {
     "title": "Eyes on Cameroon",
@@ -17,9 +70,9 @@
   },
   "about": {
     "title": "Wer sind wir?",
-    "description": "Eyes on Cameroon ist eine gemeinnützige Organisation, die sich für Bildung, Kultur und den Austausch zwischen Deutschland und Kamerun einsetzt.",
-    "mission_title": "Unsere Mission",
-    "mission_text": "Wir fördern den Dialog zwischen den beiden Ländern und unterstützen Projekte, die das Leben der Menschen in Kamerun verbessern.",
+    "description": "EyesOnCameroon eV ist ein gemeinnütziger Verein, dessen Hauptziel es ist, die Vielfalt der kamerunischen Kultur in Deutschland zu präsentieren.",
+    "activities_title": "Unsere Aktivitäten",
+    "activities_text": "Unsere Aktivitäten umfassen Theater, Tanz, Musik, Modenschauen, Literatur, kulinarische Verkostungen, Reiseberatung, Foren sowie andere kreative und charakteristische Besonderheiten des Landes.",
     "read_more": "Mehr erfahren"
   },
   "events": {
@@ -63,6 +116,33 @@
     "title": "Unterstützen Sie uns",
     "description": "Ihre Spende hilft uns, unsere Projekte zu finanzieren",
     "button": "Jetzt spenden"
+  },
+  "offers": {
+    "title": "Unsere Angebote",
+    "subtitle": "Was wir unserer Gemeinschaft und unseren Partnern anbieten",
+    "cultural_title": "Kulturell",
+    "cultural_intro": "Entdecken Sie den Reichtum der kamerunischen Kultur in Deutschland: Unsere Organisation bietet Ihnen die einzigartige Möglichkeit, die Traditionen, Kunst, Musik und Küche Kameruns zu erkunden.",
+    "cultural_text": "Wir organisieren regelmäßig Kulturveranstaltungen, Kunstausstellungen, Konzerte traditioneller und zeitgenössischer Musik sowie Kochworkshops, um Ihnen die exotischen Aromen Kameruns näherzubringen. Begleiten Sie uns auf einer unvergesslichen Kulturreise und bereichern Sie Ihr Wissen über das kamerunische Erbe.",
+    "social_title": "Sozial",
+    "social_intro": "Solidarität und sozialer Austausch: Unsere Organisation beschränkt sich nicht nur auf kulturelle Entdeckungen, sondern engagiert sich auch dafür, soziale Bindungen zwischen der kamerunischen und deutschen Gemeinschaft zu knüpfen.",
+    "social_text": "Wir organisieren Austauschprogramme, soziale Begegnungen und Freiwilligenaktivitäten, um den interkulturellen Dialog, gegenseitiges Verständnis und Unterstützung zu fördern. Gemeinsam bauen wir Brücken der Freundschaft und Solidarität.",
+    "dev_title": "Entwicklungspolitik",
+    "dev_intro": "Nachhaltige Entwicklung fördern: Das Engagement für nachhaltige Entwicklung in Kamerun steht im Mittelpunkt unserer Mission.",
+    "dev_text": "Wir arbeiten mit lokalen Partnern zusammen, um Projekte in den Bereichen Bildung, Gesundheit, nachhaltige Landwirtschaft und Umweltschutz zu unterstützen. Durch die Teilnahme an unseren Aktivitäten tragen Sie direkt zur Verbesserung der Lebensbedingungen in Kamerun und zur Förderung einer gerechten Entwicklung für Mensch und Natur bei.",
+    "contact_button": "Kontakt"
+  },
+  "why": {
+    "title": "Warum Eyes on Cameroon?",
+    "subtitle": "Die Gründe, die uns zur Gründung dieser Organisation bewogen haben",
+    "reason1_title": "Integration und internationales Verständnis",
+    "reason1_text": "Es gilt, die Integration der in Deutschland lebenden Kameruner und das internationale Verständnis zu fördern.",
+    "reason2_title": "Brücken zwischen zwei Nationen bauen",
+    "reason2_text": "Es geht auch darum, Brücken zwischen Deutschland und Kamerun zu schlagen, um gemeinnützige Projekte mit sozialer und kultureller Ausrichtung sowie die Entwicklung Kameruns zu unterstützen.",
+    "vision_title": "Unsere langfristige Vision",
+    "vision_text": "Langfristig strebt EyesOnCameroon danach, ein bedeutender Akteur bei der Förderung der kamerunischen Vielfalt zu werden, indem es auf die Anerkennung des einzigartigen Charakters und der Identität unserer Diaspora in Deutschland setzt.",
+    "cta_title": "Machen Sie mit",
+    "cta_text": "Teilen Sie diese Vision? Tragen Sie zu unserer Mission bei, indem Sie Mitglied, Partner oder Spender werden.",
+    "cta_button": "Kontakt aufnehmen"
   },
   "common": {
     "loading": "Laden...",

@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TopBanner from "@/components/TopBanner";
 
 export default async function MainLayout({
   children,
@@ -12,6 +13,7 @@ export default async function MainLayout({
 
   return (
     <>
+      <TopBanner />
       <Header locale={locale} />
       <main className="flex-1">{children}</main>
       <Footer />

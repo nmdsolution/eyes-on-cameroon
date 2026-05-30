@@ -6,6 +6,7 @@ import { ArrowRight, Calendar, Users, Globe2, Play } from "lucide-react";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import Image from "next/image";
 import VideoButton from "@/components/VideoButton";
+import BannerSlider from "@/components/BannerSlider";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -18,7 +19,7 @@ export async function generateMetadata({
   return { title: t("title"), description: t("subtitle") };
 }
 
-function HeroSection() {
+function HeroSection({ heroVideoUrl }: { heroVideoUrl?: string }) {
   const t = useTranslations("hero");
   // Set to false to use fallback gradient instead of image
   const hasHeroImage = true;
@@ -30,7 +31,7 @@ function HeroSection() {
         {hasHeroImage ? (
           <>
             <Image
-              src="/images/hero-cameroon.avif"
+              src="/images/hero-cameroon.jpg"
               alt="Cameroon landscape"
               fill
               className="object-cover"
@@ -79,7 +80,7 @@ function HeroSection() {
             >
               {t("cta_about")}
             </Link>
-            <VideoButton />
+            <VideoButton videoUrl={heroVideoUrl} />
           </div>
         </div>
       </div>
@@ -125,8 +126,8 @@ function AboutSection() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{t("title")}</h2>
             <p className="text-gray-600 mb-6 leading-relaxed">{t("description")}</p>
-            <h3 className="text-xl font-semibold text-green-700 mb-2">{t("mission_title")}</h3>
-            <p className="text-gray-600 mb-6 leading-relaxed">{t("mission_text")}</p>
+            <h3 className="text-xl font-semibold text-green-700 mb-2">{t("activities_title")}</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">{t("activities_text")}</p>
             <Link
               href="/wer-sind-wir"
               className="inline-flex items-center gap-2 text-green-700 font-semibold hover:underline"
@@ -136,7 +137,7 @@ function AboutSection() {
           </div>
           <div className="relative rounded-2xl h-64 md:h-80 overflow-hidden shadow-lg">
             <Image
-              src="/images/apropo.png"
+              src="/images/apropo.jpg"
               alt="About Eyes on Cameroon"
               fill
               className="object-cover"
@@ -207,6 +208,32 @@ async function NewsSection() {
   );
 }
 
+async function BannersSection() {
+  let banners: Array<{ id: string; title: string | null; media_url: string; media_type: "image" | "video"; link_url: string | null }> = [];
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("pub_banners")
+      .select("id, title, media_url, media_type, link_url")
+      .eq("active", true)
+      .order("sort_order", { ascending: true });
+    banners = data ?? [];
+  } catch {
+    /* table may not exist yet */
+  }
+
+  if (banners.length === 0) return null;
+
+  return (
+    <section className="py-12 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link href="/veranstaltungen" className="text-xs font-semibold uppercase tracking-widest text-green-700 mb-4 hover:underline block">Événements à la une</Link>
+        <BannerSlider banners={banners} />
+      </div>
+    </section>
+  );
+}
+
 async function EventsSection() {
   const t = await getTranslations("events");
 
@@ -241,7 +268,7 @@ async function EventsSection() {
         ) : (
           <div className="grid sm:grid-cols-2 gap-6">
             {events.map((event) => (
-              <div key={event.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+              <Link key={event.id} href={`/veranstaltungen/${event.id}`} className="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow block">
                 {event.image_url ? (
                   <div className="relative h-40">
                     <Image src={event.image_url} alt={event.title} fill className="object-cover" />
@@ -263,7 +290,7 @@ async function EventsSection() {
                     <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
@@ -290,14 +317,28 @@ function DonateSection() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch hero video URL
+  let heroVideoUrl: string | undefined;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("hero_settings")
+      .select("video_url")
+      .single();
+    heroVideoUrl = data?.video_url ?? undefined;
+  } catch {
+    // Table may not exist yet
+  }
+
   return (
     <>
-      <HeroSection />
+      <HeroSection heroVideoUrl={heroVideoUrl} />
       <StatsSection />
       <AboutSection />
-      <NewsSection />
       <EventsSection />
+      <BannersSection />
+      <NewsSection />
       <DonateSection />
     </>
   );

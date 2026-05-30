@@ -11,6 +11,8 @@ import {
   MessageSquare,
   LogOut,
   Eye,
+  Megaphone,
+  Video,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -23,6 +25,8 @@ const navItems = [
   { href: "/admin/team", label: "Team", icon: Users },
   { href: "/admin/partners", label: "Partners", icon: Handshake },
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
+  { href: "/admin/pub-banners", label: "Bannières pub", icon: Megaphone },
+  { href: "/admin/hero-settings", label: "Vidéo Hero", icon: Video },
 ];
 
 export default function AdminSidebar({ userEmail }: { userEmail: string }) {

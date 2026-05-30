@@ -21,7 +21,7 @@ export default function AboutPage() {
         {/* Left column - Image */}
         <div className="relative rounded-2xl h-80 md:h-[500px] overflow-hidden shadow-lg sticky top-24">
           <Image
-            src="/images/apropo.png"
+            src="/images/apropo.jpg"
             alt="About Eyes on Cameroon"
             fill
             className="object-cover"
@@ -31,20 +31,10 @@ export default function AboutPage() {
         {/* Right column - Content */}
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-6">{t("title")}</h1>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">{t("description")}</p>
-          <div className="bg-green-50 border-l-4 border-green-600 p-6 rounded-r-xl mb-8">
-            <h2 className="text-xl font-bold text-green-800 mb-3">{t("mission_title")}</h2>
-            <p className="text-gray-700 leading-relaxed">{t("mission_text")}</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {["Bildung", "Kultur", "Vernetzung", "Entwicklung"].map((pillar) => (
-              <div key={pillar} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-                <h3 className="font-bold text-gray-900 mb-2">{pillar}</h3>
-                <p className="text-sm text-gray-600">
-                  Wir engagieren uns für {pillar.toLowerCase()} zwischen Deutschland und Kamerun.
-                </p>
-              </div>
-            ))}
+          <p className="text-lg text-gray-600 leading-relaxed mb-8">{t("description")}</p>
+          <div className="bg-green-50 border-l-4 border-green-600 p-6 rounded-r-xl">
+            <h2 className="text-xl font-bold text-green-800 mb-3">{t("activities_title")}</h2>
+            <p className="text-gray-700 leading-relaxed">{t("activities_text")}</p>
           </div>
         </div>
       </div>
