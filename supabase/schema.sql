@@ -22,6 +22,7 @@ create table if not exists public.events (
   end_date    timestamptz,
   location    text,
   image_url   text,
+  content_img text,
   locale      text not null default 'de',
   created_at  timestamptz default now()
 );
@@ -60,12 +61,18 @@ create table if not exists public.pub_banners (
   created_at  timestamptz default now()
 );
 
--- Hero video settings
+-- Hero media settings (video or fixed image)
 create table if not exists public.hero_settings (
   id          uuid primary key default gen_random_uuid(),
+  media_type  text not null default 'video', -- 'video' | 'image'
   video_url   text,
+  image_url   text,
   updated_at  timestamptz default now()
 );
+
+-- Migration for existing rows (run if table already exists)
+-- ALTER TABLE public.hero_settings ADD COLUMN IF NOT EXISTS media_type text NOT NULL DEFAULT 'video';
+-- ALTER TABLE public.hero_settings ADD COLUMN IF NOT EXISTS image_url text;
 
 -- Contact messages
 create table if not exists public.contact_messages (
@@ -85,9 +92,15 @@ create table if not exists public.members (
   phone        text,
   city         text,
   motivation   text,
+  is_admin     boolean not null default false,
   joined_at    timestamptz default now(),
   updated_at   timestamptz default now()
 );
+
+-- Migration for existing table (run if table already exists):
+-- ALTER TABLE public.members ADD COLUMN IF NOT EXISTS is_admin boolean NOT NULL DEFAULT false;
+-- To grant admin rights to a user:
+-- UPDATE public.members SET is_admin = true WHERE id = '<user-uuid>';
 
 -- Auto-create member record on user signup
 create or replace function public.handle_new_user()

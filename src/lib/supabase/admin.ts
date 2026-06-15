@@ -29,5 +29,17 @@ export async function getAdminSession() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  if (!session) return null;
+
+  // Only users with is_admin = true in the members table can access admin
+  const { data: member } = await supabase
+    .from("members")
+    .select("is_admin")
+    .eq("id", session.user.id)
+    .single();
+
+  if (!member?.is_admin) return null;
+
   return session;
 }

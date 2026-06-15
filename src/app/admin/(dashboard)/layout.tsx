@@ -13,8 +13,9 @@ export default async function AdminLayout({
 }) {
   const session = await getAdminSession();
 
+  // Non-admin users (including logged-in regular members) are sent to home
   if (!session) {
-    redirect("/admin/login");
+    redirect("/");
   }
 
   return (

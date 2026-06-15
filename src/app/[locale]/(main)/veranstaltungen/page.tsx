@@ -1,10 +1,10 @@
 import { getTranslations } from "next-intl/server";
-import { useTranslations } from "next-intl";
 import type { Metadata } from "next";
-import { Calendar, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata({
   params,
@@ -42,7 +42,7 @@ export default async function EventsPage() {
       ) : (
         <div className="grid md:grid-cols-2 gap-6">
           {events.map((event) => (
-            <div key={event.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+            <Link key={event.id} href={`/veranstaltungen/${event.id}`} className="block bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
               {event.image_url ? (
                 <div className="relative h-48">
                   <Image src={event.image_url} alt={event.title} fill className="object-cover" />
@@ -67,7 +67,7 @@ export default async function EventsPage() {
                   <p className="text-gray-600 text-sm line-clamp-3">{event.description}</p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

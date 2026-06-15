@@ -12,6 +12,7 @@ type Event = {
   end_date: string | null;
   location: string | null;
   image_url: string | null;
+  content_img: string | null;
   locale: string;
   created_at: string;
 };
@@ -25,6 +26,7 @@ const emptyForm: FormData = {
   end_date: "",
   location: "",
   image_url: "",
+  content_img: "",
   locale: "de",
 };
 
@@ -47,6 +49,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
   const [editing, setEditing] = useState<Event | null>(null);
   const [form, setForm] = useState<FormData>(emptyForm);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(0);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,6 +69,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
       end_date: ev.end_date ? new Date(ev.end_date).toISOString().slice(0, 16) : "",
       location: ev.location ?? "",
       image_url: ev.image_url ?? "",
+      content_img: ev.content_img ?? "",
       locale: ev.locale,
     });
     setShowForm(true);
@@ -77,7 +81,13 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
     setLoading(true);
     setError(null);
 
-    const payload = editing ? { ...form, id: editing.id } : form;
+    const clean = {
+      ...form,
+      image_url: form.image_url || null,
+      content_img: form.content_img || null,
+      end_date: form.end_date || null,
+    };
+    const payload = editing ? { ...clean, id: editing.id } : clean;
     const res = await fetch("/admin/api/events", {
       method: editing ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
@@ -156,19 +166,32 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
             <Field label="Description">
               <textarea className={inputCls} rows={3} value={form.description ?? ""} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} />
             </Field>
-            <Field label="Event Image">
-              <ImageUpload
-                value={form.image_url}
-                onChange={(url) => setForm((f) => ({ ...f, image_url: url }))}
-                folder="events"
-              />
-            </Field>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label="Cover Image (list)">
+                <ImageUpload
+                  key={`cover-${editing?.id ?? "new"}`}
+                  value={form.image_url}
+                  onChange={(url) => setForm((f) => ({ ...f, image_url: url }))}
+                  onUploadingChange={(v) => setUploading((n) => n + (v ? 1 : -1))}
+                  folder="events"
+                />
+              </Field>
+              <Field label="Content Image (detail page)">
+                <ImageUpload
+                  key={`content-${editing?.id ?? "new"}`}
+                  value={form.content_img}
+                  onChange={(url) => setForm((f) => ({ ...f, content_img: url }))}
+                  onUploadingChange={(v) => setUploading((n) => n + (v ? 1 : -1))}
+                  folder="events"
+                />
+              </Field>
+            </div>
             {error && <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>}
             <div className="flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">Cancel</button>
-              <button type="submit" disabled={loading} className="flex items-center gap-2 px-4 py-2 text-sm bg-green-700 text-white rounded-lg hover:bg-green-800 disabled:opacity-60">
-                {loading ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
-                {editing ? "Save changes" : "Create"}
+              <button type="submit" disabled={loading || uploading > 0} className="flex items-center gap-2 px-4 py-2 text-sm bg-green-700 text-white rounded-lg hover:bg-green-800 disabled:opacity-60">
+                {loading || uploading > 0 ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
+                {uploading > 0 ? "Uploading..." : editing ? "Save changes" : "Create"}
               </button>
             </div>
           </form>

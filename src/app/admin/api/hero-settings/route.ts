@@ -8,30 +8,36 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { video_url } = await req.json();
+    const { media_type, video_url, image_url } = await req.json();
+
+    if (media_type !== "video" && media_type !== "image") {
+      return NextResponse.json({ error: "Invalid media_type" }, { status: 400 });
+    }
 
     const supabase = await createAdminClient();
 
-    // Check if settings exist
+    const payload = {
+      media_type,
+      video_url: video_url ?? null,
+      image_url: image_url ?? null,
+      updated_at: new Date().toISOString(),
+    };
+
     const { data: existing } = await supabase
       .from("hero_settings")
       .select("id")
       .single();
 
     if (existing) {
-      // Update existing
       const { error } = await supabase
         .from("hero_settings")
-        .update({ video_url, updated_at: new Date().toISOString() })
+        .update(payload)
         .eq("id", existing.id);
-
       if (error) throw error;
     } else {
-      // Create new
       const { error } = await supabase
         .from("hero_settings")
-        .insert({ video_url });
-
+        .insert(payload);
       if (error) throw error;
     }
 

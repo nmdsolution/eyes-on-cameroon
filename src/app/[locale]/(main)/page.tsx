@@ -19,7 +19,13 @@ export async function generateMetadata({
   return { title: t("title"), description: t("subtitle") };
 }
 
-function HeroSection({ heroVideoUrl }: { heroVideoUrl?: string }) {
+type HeroMedia = {
+  video_url: string | null;
+  image_url: string | null;
+  media_type: "video" | "image" | null;
+};
+
+function HeroSection({ heroMedia }: { heroMedia?: HeroMedia }) {
   const t = useTranslations("hero");
   // Set to false to use fallback gradient instead of image
   const hasHeroImage = true;
@@ -80,7 +86,11 @@ function HeroSection({ heroVideoUrl }: { heroVideoUrl?: string }) {
             >
               {t("cta_about")}
             </Link>
-            <VideoButton videoUrl={heroVideoUrl} />
+            <VideoButton
+              videoUrl={heroMedia?.video_url}
+              imageUrl={heroMedia?.image_url}
+              mediaType={heroMedia?.media_type}
+            />
           </div>
         </div>
       </div>
@@ -318,22 +328,22 @@ function DonateSection() {
 }
 
 export default async function HomePage() {
-  // Fetch hero video URL
-  let heroVideoUrl: string | undefined;
+  // Fetch hero media settings
+  let heroMedia: HeroMedia | undefined;
   try {
     const supabase = await createClient();
     const { data } = await supabase
       .from("hero_settings")
-      .select("video_url")
+      .select("video_url, image_url, media_type")
       .single();
-    heroVideoUrl = data?.video_url ?? undefined;
+    if (data) heroMedia = data as HeroMedia;
   } catch {
     // Table may not exist yet
   }
 
   return (
     <>
-      <HeroSection heroVideoUrl={heroVideoUrl} />
+      <HeroSection heroMedia={heroMedia} />
       <StatsSection />
       <AboutSection />
       <EventsSection />

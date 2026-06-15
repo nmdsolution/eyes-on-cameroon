@@ -1,19 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { Play, X } from "lucide-react";
+import { Play, X, ImageIcon } from "lucide-react";
 
-export default function VideoButton({ videoUrl }: { videoUrl?: string }) {
+interface VideoButtonProps {
+  videoUrl?: string | null;
+  imageUrl?: string | null;
+  mediaType?: "video" | "image" | null;
+}
+
+export default function VideoButton({ videoUrl, imageUrl, mediaType }: VideoButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!videoUrl) return null;
+  const isImage = mediaType === "image" && !!imageUrl;
+  const isVideo = (mediaType === "video" || !mediaType) && !!videoUrl;
+
+  if (!isImage && !isVideo) return null;
 
   const getYoutubeEmbedUrl = (url: string): string | null => {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
     return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1` : null;
   };
 
-  const youtubeUrl = getYoutubeEmbedUrl(videoUrl);
+  const youtubeUrl = isVideo ? getYoutubeEmbedUrl(videoUrl!) : null;
 
   return (
     <>
@@ -21,19 +30,44 @@ export default function VideoButton({ videoUrl }: { videoUrl?: string }) {
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-500 text-green-900 font-semibold rounded-full hover:bg-yellow-400 transition-colors"
       >
-        <Play size={18} fill="currentColor" /> Voir la vidéo
+        {isImage ? (
+          <>
+            <ImageIcon size={18} /> Voir l&apos;image
+          </>
+        ) : (
+          <>
+            <Play size={18} fill="currentColor" /> Voir la vidéo
+          </>
+        )}
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setIsOpen(false)}>
-          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            className={`relative w-full bg-black rounded-xl overflow-hidden ${
+              isImage ? "max-w-4xl" : "max-w-4xl aspect-video"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70"
+              className="absolute top-3 right-3 z-10 p-2 bg-black/60 text-white rounded-full hover:bg-black/80 transition-colors"
+              aria-label="Fermer"
             >
-              <X size={24} />
+              <X size={22} />
             </button>
-            {youtubeUrl ? (
+
+            {isImage ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={imageUrl!}
+                alt="Aperçu hero"
+                className="w-full h-auto max-h-[85vh] object-contain"
+              />
+            ) : youtubeUrl ? (
               <iframe
                 src={youtubeUrl}
                 className="w-full h-full"
@@ -42,7 +76,7 @@ export default function VideoButton({ videoUrl }: { videoUrl?: string }) {
               />
             ) : (
               <video
-                src={videoUrl}
+                src={videoUrl!}
                 className="w-full h-full"
                 controls
                 autoPlay

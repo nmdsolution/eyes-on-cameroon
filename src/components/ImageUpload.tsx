@@ -1,18 +1,24 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useId } from "react";
 import { Loader2, X, ImageIcon } from "lucide-react";
 
 interface ImageUploadProps {
   value: string | null;
   onChange: (url: string | null) => void;
+  onUploadingChange?: (isUploading: boolean) => void;
   folder?: string;
 }
 
-export default function ImageUpload({ value, onChange, folder = "images" }: ImageUploadProps) {
+export default function ImageUpload({ value, onChange, onUploadingChange, folder = "images" }: ImageUploadProps) {
+  const id = useId();
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value);
-  const inputRef = useRef<HTMLInputElement>(null);
+
+  function setUploadingState(val: boolean) {
+    setUploading(val);
+    onUploadingChange?.(val);
+  }
 
   async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -21,7 +27,7 @@ export default function ImageUpload({ value, onChange, folder = "images" }: Imag
     const objectUrl = URL.createObjectURL(file);
     setPreview(objectUrl);
 
-    setUploading(true);
+    setUploadingState(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -41,33 +47,29 @@ export default function ImageUpload({ value, onChange, folder = "images" }: Imag
       alert("Failed to upload image");
       setPreview(value);
     } finally {
-      setUploading(false);
+      setUploadingState(false);
     }
   }
 
   function handleRemove() {
     onChange(null);
     setPreview(null);
-    if (inputRef.current) inputRef.current.value = "";
   }
 
   return (
     <div className="space-y-3">
       <input
-        ref={inputRef}
+        id={id}
         type="file"
         accept="image/*"
         onChange={handleFileSelect}
+        disabled={uploading}
         className="hidden"
       />
 
       {preview ? (
         <div className="relative w-full h-40 rounded-lg overflow-hidden border border-gray-200">
-          <img
-            src={preview}
-            alt="Preview"
-            className="w-full h-full object-cover"
-          />
+          <img src={preview} alt="Preview" className="w-full h-full object-cover" />
           <button
             type="button"
             onClick={handleRemove}
@@ -77,11 +79,10 @@ export default function ImageUpload({ value, onChange, folder = "images" }: Imag
           </button>
         </div>
       ) : (
-        <button
-          type="button"
-          onClick={() => inputRef.current?.click()}
-          disabled={uploading}
-          className="w-full h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center gap-2 hover:border-green-500 hover:bg-green-50 transition-colors disabled:opacity-60"
+        <label
+          htmlFor={id}
+          className="cursor-pointer w-full h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center gap-2 hover:border-green-500 hover:bg-green-50 transition-colors"
+          style={uploading ? { pointerEvents: "none", opacity: 0.6 } : {}}
         >
           {uploading ? (
             <>
@@ -95,7 +96,7 @@ export default function ImageUpload({ value, onChange, folder = "images" }: Imag
               <span className="text-xs text-gray-400">or drag and drop</span>
             </>
           )}
-        </button>
+        </label>
       )}
     </div>
   );
