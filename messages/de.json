@@ -66,7 +66,11 @@
     "title": "Eyes on Cameroon",
     "subtitle": "Verbindung zwischen Deutschland und Kamerun",
     "cta_news": "Aktuelles",
-    "cta_about": "Über uns"
+    "cta_about": "Über uns",
+    "view_image": "Bild anzeigen",
+    "view_video": "Video ansehen",
+    "close": "Schließen",
+    "image_preview": "Vorschau"
   },
   "about": {
     "title": "Wer sind wir?",
@@ -75,17 +79,36 @@
     "activities_text": "Unsere Aktivitäten umfassen Theater, Tanz, Musik, Modenschauen, Literatur, kulinarische Verkostungen, Reiseberatung, Foren sowie andere kreative und charakteristische Besonderheiten des Landes.",
     "read_more": "Mehr erfahren"
   },
+  "home": {
+    "stats_countries": "Länder",
+    "stats_members": "Mitglieder",
+    "stats_years": "Jahre",
+    "featured_events": "Ausgewählte Veranstaltungen"
+  },
   "events": {
     "title": "Veranstaltungen",
     "subtitle": "Kommende Ereignisse und Aktivitäten",
     "no_events": "Keine kommenden Veranstaltungen",
-    "all_events": "Alle Veranstaltungen"
+    "all_events": "Alle Veranstaltungen",
+    "featured": "Ausgewählte Veranstaltungen",
+    "previous": "Vorheriger",
+    "next": "Nächster",
+    "event_n": "Veranstaltung {n}"
   },
   "news": {
     "title": "Aktuelles",
     "subtitle": "Neuigkeiten aus unserer Organisation",
     "read_more": "Weiterlesen",
-    "all_articles": "Alle Artikel"
+    "all_articles": "Alle Artikel",
+    "no_articles": "Noch keine Artikel vorhanden.",
+    "placeholder_1_title": "Jahrestreffen 2024",
+    "placeholder_1_excerpt": "Unser jährliches Treffen war ein voller Erfolg.",
+    "placeholder_2_title": "Neues Schulprojekt",
+    "placeholder_2_excerpt": "Wir starten ein neues Bildungsprojekt in Kamerun.",
+    "placeholder_3_title": "Kulturabend",
+    "placeholder_3_excerpt": "Ein unvergesslicher Abend voller kamerunischer Kultur.",
+    "placeholder_4_title": "Spendenaktion",
+    "placeholder_4_excerpt": "Unsere Spendenaktion hat 5.000 Euro erreicht."
   },
   "team": {
     "title": "Unser Team",
@@ -110,7 +133,9 @@
     "rights": "Alle Rechte vorbehalten",
     "privacy": "Datenschutz",
     "imprint": "Impressum",
-    "description": "Eine Brücke zwischen Deutschland und Kamerun"
+    "description": "Eine Brücke zwischen Deutschland und Kamerun",
+    "navigation": "Navigation",
+    "location": "Deutschland"
   },
   "donate": {
     "title": "Unterstützen Sie uns",
@@ -147,6 +172,9 @@
   "common": {
     "loading": "Laden...",
     "error": "Ein Fehler ist aufgetreten",
-    "back": "Zurück"
+    "back": "Zurück",
+    "contact_us": "Kontaktieren Sie uns",
+    "view_profile": "Profil anzeigen",
+    "coming_soon": "Dieser Artikel wird in Kürze verfügbar sein."
   }
 }

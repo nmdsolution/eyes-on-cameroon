@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Play, X, ImageIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface VideoButtonProps {
   videoUrl?: string | null;
@@ -11,6 +12,7 @@ interface VideoButtonProps {
 
 export default function VideoButton({ videoUrl, imageUrl, mediaType }: VideoButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("hero");
 
   const isImage = mediaType === "image" && !!imageUrl;
   const isVideo = (mediaType === "video" || !mediaType) && !!videoUrl;
@@ -32,11 +34,11 @@ export default function VideoButton({ videoUrl, imageUrl, mediaType }: VideoButt
       >
         {isImage ? (
           <>
-            <ImageIcon size={18} /> Voir l&apos;image
+            <ImageIcon size={18} /> {t("view_image")}
           </>
         ) : (
           <>
-            <Play size={18} fill="currentColor" /> Voir la vidéo
+            <Play size={18} fill="currentColor" /> {t("view_video")}
           </>
         )}
       </button>
@@ -55,7 +57,7 @@ export default function VideoButton({ videoUrl, imageUrl, mediaType }: VideoButt
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-3 right-3 z-10 p-2 bg-black/60 text-white rounded-full hover:bg-black/80 transition-colors"
-              aria-label="Fermer"
+              aria-label={t("close")}
             >
               <X size={22} />
             </button>
@@ -64,7 +66,7 @@ export default function VideoButton({ videoUrl, imageUrl, mediaType }: VideoButt
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={imageUrl!}
-                alt="Aperçu hero"
+                alt={t("image_preview")}
                 className="w-full h-auto max-h-[85vh] object-contain"
               />
             ) : youtubeUrl ? (

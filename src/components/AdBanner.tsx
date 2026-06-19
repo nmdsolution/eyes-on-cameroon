@@ -1,42 +1,34 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
-interface Ad {
-  href: string;
-  external?: boolean;
-  emoji: string;
-  label: string;
-  sub?: string;
-  className: string;
-  labelClassName: string;
-  subClassName: string;
-}
-
-const ads: Ad[] = [
-  {
-    href: "https://web.facebook.com/loic.lef.7",
-    external: true,
-    emoji: "📢",
-    label: "Loic Lef",
-    sub: "Voir le profil Facebook",
-    className:
-      "bg-gradient-to-b from-blue-50 to-blue-100 border-blue-200 h-[250px]",
-    labelClassName: "text-blue-700",
-    subClassName: "text-blue-500",
-  },
-  {
-    href: "/kontakt",
-    external: false,
-    emoji: "🌿",
-    label: "",
-    sub: "Contactez-nous",
-    className:
-      "bg-gradient-to-b from-green-50 to-green-100 border-green-200 h-[200px]",
-    labelClassName: "text-green-700",
-    subClassName: "text-green-600",
-  },
-];
-
 export default function AdBanner() {
+  const t = useTranslations("common");
+
+  const ads = [
+    {
+      href: "https://web.facebook.com/loic.lef.7",
+      external: true,
+      emoji: "📢",
+      label: "Loic Lef",
+      sub: t("view_profile"),
+      className: "bg-gradient-to-b from-blue-50 to-blue-100 border-blue-200 h-[250px]",
+      labelClassName: "text-blue-700",
+      subClassName: "text-blue-500",
+    },
+    {
+      href: "/kontakt",
+      external: false,
+      emoji: "🌿",
+      label: "",
+      sub: t("contact_us"),
+      className: "bg-gradient-to-b from-green-50 to-green-100 border-green-200 h-[200px]",
+      labelClassName: "text-green-700",
+      subClassName: "text-green-600",
+    },
+  ];
+
   return (
     <div className="sticky top-24 space-y-4">
       {ads.map((ad, i) =>

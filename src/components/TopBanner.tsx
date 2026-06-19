@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
-export default function TopBanner() {
+export default function TopBanner({ locale }: { locale: string }) {
   const [banners, setBanners] = useState<Array<{ title: string | null; link_url: string | null }>>([]);
   const [current, setCurrent] = useState(0);
 
@@ -14,16 +14,27 @@ export default function TopBanner() {
       .from("pub_banners")
       .select("title, link_url")
       .eq("active", true)
+      .eq("locale", locale)
       .order("sort_order", { ascending: true })
-      .then(({ data }) => setBanners(data ?? []));
-  }, []);
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setBanners(data);
+        } else {
+          supabase
+            .from("pub_banners")
+            .select("title, link_url")
+            .eq("active", true)
+            .order("sort_order", { ascending: true })
+            .then(({ data: allData }) => setBanners(allData ?? []));
+        }
+      });
+  }, [locale]);
 
   if (banners.length === 0) return null;
 
   const banner = banners[current];
   const content = banner?.title ?? "Eyes on Cameroon";
 
-  // Advance to next title only when the current one finishes scrolling
   function onScrollEnd() {
     if (banners.length > 1) {
       setCurrent((i) => (i + 1) % banners.length);

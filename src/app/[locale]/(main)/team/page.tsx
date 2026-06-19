@@ -1,12 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
-import { User } from "lucide-react";
-import Image from "next/image";
+import TeamMemberCard, { TeamMemberCardFeatured } from "@/components/TeamMemberCard";
+import { Users } from "lucide-react";
 
-// Local team images from public/images/team
 const teamImages = [
-  { name: "Dr. GHISLAIN MOUI SIL", role: "Vorsitzende/r", bio: "Leitet den Vorstand und die strategische Ausrichtung.", image: "/images/team/Dr. GHISLAIN MOUI SIL.jpg" },
+  { name: "Dr. GHISLAIN MOUI SIL", role: "Vorsitzende/r", bio: "Leitet den Vorstand und die strategische Ausrichtung der Vereinigung.", image: "/images/team/Dr. GHISLAIN MOUI SIL.jpg" },
   { name: "ESTELLE WAMY-ALTHOFF", role: "Stellvertretung", bio: "Unterstützt den Vorsitz und koordiniert die Teams.", image: "/images/team/ESTELLE WAMY-ALTHOFF.jpg" },
   { name: "NATACHA TIMMA", role: "Finanzen", bio: "Verantwortlich für die Finanzen der Organisation.", image: "/images/team/NATACHA TIMMA.jpg" },
   { name: "SABINE MBALLA", role: "Sekretariat", bio: "Protokolliert Sitzungen und verwaltet die Korrespondenz.", image: "/images/team/SABINE MBALLA.jpg" },
@@ -24,23 +23,36 @@ export async function generateMetadata({
   return { title: t("title") };
 }
 
-export default async function TeamPage() {
-  const t = await getTranslations("team");
+export default async function TeamPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "team" });
 
-  // Fetch from Supabase or use local images
   let members: Array<{ id: string; name: string; role: string; bio: string; photo_url?: string }> = [];
   try {
     const supabase = await createClient();
-    const { data } = await supabase
+    const { data: localeData } = await supabase
       .from("team_members")
       .select("id, name, role, bio, photo_url")
+      .eq("locale", locale)
       .order("order", { ascending: true });
-    members = data ?? [];
+
+    if (localeData && localeData.length > 0) {
+      members = localeData;
+    } else {
+      const { data: allData } = await supabase
+        .from("team_members")
+        .select("id, name, role, bio, photo_url")
+        .order("order", { ascending: true });
+      members = allData ?? [];
+    }
   } catch {
     console.error("Failed to fetch team members");
   }
 
-  // Use local images if no Supabase data
   const displayMembers = members.length > 0 ? members : teamImages.map((m, i) => ({
     id: String(i + 1),
     name: m.name,
@@ -49,29 +61,69 @@ export default async function TeamPage() {
     photo_url: m.image,
   }));
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h1 className="text-4xl font-bold text-gray-900 mb-2">{t("title")}</h1>
-      <p className="text-gray-500 mb-10">{t("subtitle")}</p>
+  const featured = displayMembers[0];
+  const rest = displayMembers.slice(1);
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {displayMembers.map((member) => (
-          <div key={member.id} className="bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
-            <div className="relative w-20 h-20 mx-auto mb-4">
-              {member.photo_url ? (
-                <Image src={member.photo_url} alt={member.name} fill className="rounded-full object-cover" />
-              ) : (
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-                  <User size={36} className="text-green-600" />
-                </div>
-              )}
-            </div>
-            <h3 className="font-bold text-gray-900 mb-1">{member.name}</h3>
-            <p className="text-sm text-green-700 font-medium mb-3">{member.role}</p>
-            <p className="text-xs text-gray-500">{member.bio}</p>
+  return (
+    <>
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section className="relative bg-green-900 text-white overflow-hidden py-6 md:py-8">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-700/40 via-transparent to-transparent" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+          }}
+        />
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="inline-block w-10 h-1 rounded-full bg-yellow-400" />
+            <span className="text-yellow-300 font-semibold text-sm uppercase tracking-widest">
+              {t("title")}
+            </span>
           </div>
-        ))}
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
+            {t("subtitle")}
+          </h1>
+          <div className="flex items-center gap-2 text-green-300 text-sm">
+            <Users size={16} />
+            <span>{displayMembers.length} membres</span>
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 flex h-1.5">
+          <div className="flex-1 bg-green-500" />
+          <div className="flex-1 bg-red-600" />
+          <div className="flex-1 bg-yellow-400" />
+        </div>
+      </section>
+
+      {/* ── Content ──────────────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+
+        {/* ── Featured: Président ── */}
+        {featured && <TeamMemberCardFeatured member={featured} />}
+
+        {/* ── Section divider ── */}
+        {rest.length > 0 && (
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-px bg-gray-100" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+              Membres du bureau
+            </span>
+            <div className="flex-1 h-px bg-gray-100" />
+          </div>
+        )}
+
+        {/* ── Rest of team ── */}
+        {rest.length > 0 && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {rest.map((member) => (
+              <TeamMemberCard key={member.id} member={member} />
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }

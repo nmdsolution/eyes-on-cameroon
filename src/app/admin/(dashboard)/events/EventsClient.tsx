@@ -6,6 +6,7 @@ import ImageUpload from "@/components/ImageUpload";
 
 type Event = {
   id: string;
+  slug: string | null;
   title: string;
   description: string | null;
   date: string;
@@ -20,6 +21,7 @@ type Event = {
 type FormData = Omit<Event, "id" | "created_at">;
 
 const emptyForm: FormData = {
+  slug: "",
   title: "",
   description: "",
   date: new Date().toISOString().slice(0, 16),
@@ -63,6 +65,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
   function openEdit(ev: Event) {
     setEditing(ev);
     setForm({
+      slug: ev.slug ?? "",
       title: ev.title,
       description: ev.description ?? "",
       date: ev.date ? new Date(ev.date).toISOString().slice(0, 16) : "",
@@ -83,6 +86,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
 
     const clean = {
       ...form,
+      slug: form.slug?.trim() || null,
       image_url: form.image_url || null,
       content_img: form.content_img || null,
       end_date: form.end_date || null,
@@ -142,9 +146,12 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
             <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-3 gap-4">
               <Field label="Title" required>
                 <input className={inputCls} value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required />
+              </Field>
+              <Field label="Slug (links translations)">
+                <input className={inputCls} placeholder="e.g. steve-bianca-2026" value={form.slug ?? ""} onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))} />
               </Field>
               <Field label="Location">
                 <input className={inputCls} value={form.location ?? ""} onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))} />

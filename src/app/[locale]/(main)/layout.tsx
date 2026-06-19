@@ -13,7 +13,7 @@ export default async function MainLayout({
 
   return (
     <>
-      <TopBanner />
+      <TopBanner locale={locale} />
       <Header locale={locale} />
       <main className="flex-1">{children}</main>
       <Footer />

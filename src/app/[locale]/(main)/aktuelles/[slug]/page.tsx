@@ -11,8 +11,8 @@ export default async function ArticlePage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const t = await getTranslations("common");
+  const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "common" });
 
   let article: { title: string; content: string; published_at: string; cover_url?: string } | null = null;
 
@@ -28,26 +28,33 @@ export default async function ArticlePage({
     // Supabase not configured yet
   }
 
-  if (!article && !["jahrestreffen-2024", "schulprojekt-2024", "kulturabend-2024", "spendenaktion-2024"].includes(slug)) {
+  const placeholderSlugs = ["jahrestreffen-2024", "schulprojekt-2024", "kulturabend-2024", "spendenaktion-2024"];
+  if (!article && !placeholderSlugs.includes(slug)) {
     notFound();
   }
 
   const fallbackArticle = article ?? {
     title: slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-    content: "Dieser Artikel wird in Kürze verfügbar sein.",
+    content: t("coming_soon"),
     published_at: new Date().toISOString().split("T")[0],
   };
+
+  const formattedDate = new Date(fallbackArticle.published_at).toLocaleDateString(locale, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <Link href="/aktuelles" className="inline-flex items-center gap-2 text-green-700 mb-8 hover:underline">
         <ArrowLeft size={16} /> {t("back")}
       </Link>
-      <p className="text-sm text-gray-400 mb-4">{fallbackArticle.published_at}</p>
+      <p className="text-sm text-gray-400 mb-4">{formattedDate}</p>
       <h1 className="text-4xl font-bold text-gray-900 mb-8">{fallbackArticle.title}</h1>
       {fallbackArticle.cover_url ? (
         <div className="relative h-64 rounded-2xl overflow-hidden mb-8">
-          <Image src={fallbackArticle.cover_url} alt={fallbackArticle.title} fill className="object-cover" />
+          <Image src={fallbackArticle.cover_url} alt={fallbackArticle.title} fill sizes="(max-width: 768px) 100vw, 800px" className="object-cover object-top" />
         </div>
       ) : (
         <PlaceholderImage className="h-64 rounded-2xl mb-8" label={fallbackArticle.title} />

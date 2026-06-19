@@ -16,6 +16,7 @@ create table if not exists public.articles (
 -- Events
 create table if not exists public.events (
   id          uuid primary key default gen_random_uuid(),
+  slug        text,
   title       text not null,
   description text,
   date        timestamptz not null,
@@ -35,6 +36,7 @@ create table if not exists public.team_members (
   bio         text,
   photo_url   text,
   "order"     int default 0,
+  locale      text not null default 'de',
   created_at  timestamptz default now()
 );
 
@@ -46,6 +48,7 @@ create table if not exists public.partners (
   logo_url    text,
   website     text,
   "order"     int default 0,
+  locale      text not null default 'de',
   created_at  timestamptz default now()
 );
 
@@ -58,6 +61,7 @@ create table if not exists public.pub_banners (
   link_url    text,
   active      boolean not null default true,
   sort_order  int not null default 0,
+  locale      text not null default 'de',
   created_at  timestamptz default now()
 );
 
@@ -73,6 +77,14 @@ create table if not exists public.hero_settings (
 -- Migration for existing rows (run if table already exists)
 -- ALTER TABLE public.hero_settings ADD COLUMN IF NOT EXISTS media_type text NOT NULL DEFAULT 'video';
 -- ALTER TABLE public.hero_settings ADD COLUMN IF NOT EXISTS image_url text;
+
+-- Migration: add locale column to team_members, partners, pub_banners (run if tables already exist)
+-- ALTER TABLE public.team_members  ADD COLUMN IF NOT EXISTS locale text NOT NULL DEFAULT 'de';
+-- ALTER TABLE public.partners      ADD COLUMN IF NOT EXISTS locale text NOT NULL DEFAULT 'de';
+-- ALTER TABLE public.pub_banners   ADD COLUMN IF NOT EXISTS locale text NOT NULL DEFAULT 'de';
+
+-- Migration: add slug column to events (links translation rows of the same event)
+-- ALTER TABLE public.events ADD COLUMN IF NOT EXISTS slug text;
 
 -- Contact messages
 create table if not exists public.contact_messages (

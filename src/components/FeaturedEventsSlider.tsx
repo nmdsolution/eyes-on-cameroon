@@ -1,7 +1,9 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { Calendar, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import PlaceholderImage from "./PlaceholderImage";
 
@@ -15,6 +17,8 @@ interface FeaturedEvent {
 
 export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent[] }) {
   const [current, setCurrent] = useState(0);
+  const t = useTranslations("events");
+  const locale = useLocale();
 
   useEffect(() => {
     if (events.length <= 1) return;
@@ -32,7 +36,7 @@ export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent
     <div className="sticky top-24 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
       <div className="bg-green-700 px-4 py-2.5 flex items-center justify-between">
         <span className="text-white text-xs font-bold uppercase tracking-wider">
-          Événements à la une
+          {t("featured")}
         </span>
         <span className="text-green-300 text-xs">
           {current + 1}/{events.length}
@@ -47,7 +51,7 @@ export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent
                 src={event.image_url}
                 alt={event.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           ) : (
@@ -61,7 +65,7 @@ export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent
             <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1.5">
               <Calendar size={12} className="text-green-700 shrink-0" />
               <span>
-                {new Date(event.date).toLocaleDateString("fr-FR", {
+                {new Date(event.date).toLocaleDateString(locale, {
                   day: "2-digit",
                   month: "long",
                   year: "numeric",
@@ -78,11 +82,9 @@ export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent
         {events.length > 1 && (
           <div className="flex items-center justify-between px-4 pb-4">
             <button
-              onClick={() =>
-                setCurrent((prev) => (prev - 1 + events.length) % events.length)
-              }
+              onClick={() => setCurrent((prev) => (prev - 1 + events.length) % events.length)}
               className="p-1.5 rounded-full bg-gray-100 hover:bg-green-100 hover:text-green-700 transition-colors"
-              aria-label="Précédent"
+              aria-label={t("previous")}
             >
               <ChevronLeft size={14} />
             </button>
@@ -97,7 +99,7 @@ export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent
                       ? "w-4 h-1.5 bg-green-700"
                       : "w-1.5 h-1.5 bg-gray-300 hover:bg-gray-400"
                   }`}
-                  aria-label={`Événement ${i + 1}`}
+                  aria-label={t("event_n", { n: i + 1 })}
                 />
               ))}
             </div>
@@ -105,7 +107,7 @@ export default function FeaturedEventsSlider({ events }: { events: FeaturedEvent
             <button
               onClick={() => setCurrent((prev) => (prev + 1) % events.length)}
               className="p-1.5 rounded-full bg-gray-100 hover:bg-green-100 hover:text-green-700 transition-colors"
-              aria-label="Suivant"
+              aria-label={t("next")}
             >
               <ChevronRight size={14} />
             </button>

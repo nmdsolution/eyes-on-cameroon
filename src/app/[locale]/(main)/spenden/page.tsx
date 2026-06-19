@@ -16,14 +16,21 @@ export default async function DonatePage() {
   const t = await getTranslations("donate");
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-          <Heart size={32} className="text-green-700" />
+    <>
+      <section className="relative bg-green-900 text-white overflow-hidden py-6 md:py-8">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-700/40 via-transparent to-transparent" />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="inline-block w-10 h-1 rounded-full bg-yellow-400" />
+            <span className="text-yellow-300 font-semibold text-sm uppercase tracking-widest">{t("title")}</span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold leading-tight">{t("description")}</h1>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("title")}</h1>
-        <p className="text-gray-600 text-lg">{t("description")}</p>
-      </div>
+        <div className="absolute bottom-0 left-0 right-0 flex h-1.5">
+          <div className="flex-1 bg-green-500" /><div className="flex-1 bg-red-600" /><div className="flex-1 bg-yellow-400" />
+        </div>
+      </section>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
       <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
         <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
@@ -54,5 +61,6 @@ export default async function DonatePage() {
         </p>
       </div>
     </div>
+    </>
   );
 }

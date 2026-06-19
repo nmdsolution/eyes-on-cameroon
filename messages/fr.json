@@ -66,7 +66,11 @@
     "title": "Eyes on Cameroon",
     "subtitle": "Le pont entre l'Allemagne et le Cameroun",
     "cta_news": "Actualités",
-    "cta_about": "À propos"
+    "cta_about": "À propos",
+    "view_image": "À la une",
+    "view_video": "Voir la vidéo",
+    "close": "Fermer",
+    "image_preview": "Aperçu"
   },
   "about": {
     "title": "Qui sommes-nous ?",
@@ -75,17 +79,36 @@
     "activities_text": "Nos activités comprennent le théâtre, la danse, la musique, les défilés de mode, la littérature, les dégustations culinaires, les conseils touristiques, les forums, ainsi que d'autres particularités créatives et existantes du pays.",
     "read_more": "En savoir plus"
   },
+  "home": {
+    "stats_countries": "Pays",
+    "stats_members": "Membres",
+    "stats_years": "Années",
+    "featured_events": "Événements à la une"
+  },
   "events": {
     "title": "Événements",
     "subtitle": "Prochains événements et activités",
     "no_events": "Aucun événement à venir",
-    "all_events": "Tous les événements"
+    "all_events": "Tous les événements",
+    "featured": "Événements à la une",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "event_n": "Événement {n}"
   },
   "news": {
     "title": "Actualités",
     "subtitle": "Les nouvelles de notre organisation",
     "read_more": "Lire la suite",
-    "all_articles": "Tous les articles"
+    "all_articles": "Tous les articles",
+    "no_articles": "Aucun article pour le moment.",
+    "placeholder_1_title": "Réunion annuelle 2024",
+    "placeholder_1_excerpt": "Notre réunion annuelle a été un grand succès.",
+    "placeholder_2_title": "Nouveau projet scolaire",
+    "placeholder_2_excerpt": "Nous lançons un nouveau projet éducatif au Cameroun.",
+    "placeholder_3_title": "Soirée culturelle",
+    "placeholder_3_excerpt": "Une soirée inoubliable pleine de culture camerounaise.",
+    "placeholder_4_title": "Campagne de dons",
+    "placeholder_4_excerpt": "Notre campagne de dons a atteint 5 000 euros."
   },
   "team": {
     "title": "Notre équipe",
@@ -110,7 +133,9 @@
     "rights": "Tous droits réservés",
     "privacy": "Politique de confidentialité",
     "imprint": "Mentions légales",
-    "description": "Un pont entre l'Allemagne et le Cameroun"
+    "description": "Un pont entre l'Allemagne et le Cameroun",
+    "navigation": "Navigation",
+    "location": "Allemagne"
   },
   "donate": {
     "title": "Soutenez-nous",
@@ -147,6 +172,9 @@
   "common": {
     "loading": "Chargement...",
     "error": "Une erreur s'est produite",
-    "back": "Retour"
+    "back": "Retour",
+    "contact_us": "Contactez-nous",
+    "view_profile": "Voir le profil",
+    "coming_soon": "Cet article sera disponible prochainement."
   }
 }

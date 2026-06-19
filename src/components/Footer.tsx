@@ -28,7 +28,7 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Navigation</h3>
+            <h3 className="text-white font-semibold mb-4">{t("navigation")}</h3>
             <ul className="space-y-2 text-sm">
               <li><Link href="/wer-sind-wir" className="hover:text-green-400 transition-colors">{tNav("about")}</Link></li>
               <li><Link href="/aktuelles" className="hover:text-green-400 transition-colors">{tNav("news")}</Link></li>
@@ -50,7 +50,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="text-green-400 shrink-0 mt-0.5" />
-                <span>Deutschland</span>
+                <span>{t("location")}</span>
               </li>
             </ul>
           </div>

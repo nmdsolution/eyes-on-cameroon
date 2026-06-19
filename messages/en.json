@@ -66,7 +66,11 @@
     "title": "Eyes on Cameroon",
     "subtitle": "The bridge between Germany and Cameroon",
     "cta_news": "Latest News",
-    "cta_about": "About Us"
+    "cta_about": "About Us",
+    "view_image": "View image",
+    "view_video": "Watch video",
+    "close": "Close",
+    "image_preview": "Preview"
   },
   "about": {
     "title": "Who are we?",
@@ -75,17 +79,36 @@
     "activities_text": "Our activities include theatre, dance, music, fashion shows, literature, culinary tastings, tourist advice, forums, as well as other creative and distinctive features of the country.",
     "read_more": "Learn more"
   },
+  "home": {
+    "stats_countries": "Countries",
+    "stats_members": "Members",
+    "stats_years": "Years",
+    "featured_events": "Featured events"
+  },
   "events": {
     "title": "Events",
     "subtitle": "Upcoming events and activities",
     "no_events": "No upcoming events",
-    "all_events": "All events"
+    "all_events": "All events",
+    "featured": "Featured events",
+    "previous": "Previous",
+    "next": "Next",
+    "event_n": "Event {n}"
   },
   "news": {
     "title": "News",
     "subtitle": "News from our organization",
     "read_more": "Read more",
-    "all_articles": "All articles"
+    "all_articles": "All articles",
+    "no_articles": "No articles yet.",
+    "placeholder_1_title": "Annual meeting 2024",
+    "placeholder_1_excerpt": "Our annual meeting was a great success.",
+    "placeholder_2_title": "New school project",
+    "placeholder_2_excerpt": "We are launching a new education project in Cameroon.",
+    "placeholder_3_title": "Cultural evening",
+    "placeholder_3_excerpt": "An unforgettable evening full of Cameroonian culture.",
+    "placeholder_4_title": "Fundraising campaign",
+    "placeholder_4_excerpt": "Our fundraising campaign has raised €5,000."
   },
   "team": {
     "title": "Our Team",
@@ -110,7 +133,9 @@
     "rights": "All rights reserved",
     "privacy": "Privacy Policy",
     "imprint": "Imprint",
-    "description": "A bridge between Germany and Cameroon"
+    "description": "A bridge between Germany and Cameroon",
+    "navigation": "Navigation",
+    "location": "Germany"
   },
   "donate": {
     "title": "Support us",
@@ -147,6 +172,9 @@
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
-    "back": "Back"
+    "back": "Back",
+    "contact_us": "Contact us",
+    "view_profile": "View profile",
+    "coming_soon": "This article will be available soon."
   }
 }

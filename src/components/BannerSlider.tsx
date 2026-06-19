@@ -36,7 +36,7 @@ export default function BannerSlider({ banners }: { banners: Banner[] }) {
   const youtubeUrl = banner.media_type === "video" ? getYoutubeEmbedUrl(banner.media_url) : null;
 
   const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <Link href={banner.link_url || "/veranstaltungen"} className="block w-full h-full">{children}</Link>
+    <Link href={banner.link_url || "/veranstaltungen"} className="relative block w-full h-full">{children}</Link>
   );
 
   return (
@@ -48,7 +48,8 @@ export default function BannerSlider({ banners }: { banners: Banner[] }) {
             src={banner.media_url}
             alt={banner.title ?? "Événement"}
             fill
-            className="object-cover transition-opacity duration-700"
+            sizes="100vw"
+            className="object-cover object-top transition-opacity duration-700"
             priority
           />
         ) : youtubeUrl ? (

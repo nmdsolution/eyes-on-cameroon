@@ -19,7 +19,21 @@ export default function WhyPage() {
   const t = useTranslations("why");
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <>
+      <section className="relative bg-green-900 text-white overflow-hidden py-6 md:py-8">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-700/40 via-transparent to-transparent" />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="inline-block w-10 h-1 rounded-full bg-yellow-400" />
+            <span className="text-yellow-300 font-semibold text-sm uppercase tracking-widest">{t("title")}</span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold leading-tight">{t("subtitle")}</h1>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 flex h-1.5">
+          <div className="flex-1 bg-green-500" /><div className="flex-1 bg-red-600" /><div className="flex-1 bg-yellow-400" />
+        </div>
+      </section>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Image + content side by side */}
       <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
         {/* Left — Image */}
@@ -90,5 +104,6 @@ export default function WhyPage() {
         </Link>
       </div>
     </div>
+    </>
   );
 }

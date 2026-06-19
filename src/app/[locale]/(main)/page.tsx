@@ -2,11 +2,13 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Calendar, Users, Globe2, Play } from "lucide-react";
+import { ArrowRight, Calendar, Users, Globe2, Music, Shirt, BookOpen, UtensilsCrossed, Theater, Heart } from "lucide-react";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import Image from "next/image";
 import VideoButton from "@/components/VideoButton";
 import BannerSlider from "@/components/BannerSlider";
+import HeroImage from "@/components/HeroImage";
+import PromoPopup from "@/components/PromoPopup";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -27,43 +29,20 @@ type HeroMedia = {
 
 function HeroSection({ heroMedia }: { heroMedia?: HeroMedia }) {
   const t = useTranslations("hero");
-  // Set to false to use fallback gradient instead of image
-  const hasHeroImage = true;
 
   return (
-    <section className="relative text-white overflow-hidden min-h-[500px] md:min-h-[600px]">
-      {/* Background */}
+    <section className="group relative text-white overflow-hidden min-h-[500px] md:min-h-[600px]">
       <div className="absolute inset-0">
-        {hasHeroImage ? (
-          <>
-            <Image
-              src="/images/hero-cameroon.jpg"
-              alt="Cameroon landscape"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-green-950/90 via-green-900/80 to-green-800/70" />
-          </>
-        ) : (
-          /* Fallback: Cameroon flag themed gradient */
-          <div className="absolute inset-0 bg-gradient-to-br from-green-800 via-green-700 to-green-900">
-            {/* Subtle flag stripe pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="h-full w-full flex flex-col">
-                <div className="flex-1 bg-green-400" />
-                <div className="flex-1 bg-red-500" />
-                <div className="flex-1 bg-yellow-400" />
-              </div>
-            </div>
-            {/* Star watermark */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-5">
-              <svg viewBox="0 0 24 24" className="w-96 h-96 fill-yellow-300">
-                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-              </svg>
-            </div>
-          </div>
-        )}
+        <>
+          <Image
+            src="/images/hero-cameroon2.jpg"
+            alt="Cameroon landscape"
+            fill
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-green-950/90 via-green-900/80 to-green-800/70" />
+        </>
       </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36">
         <div className="max-w-3xl">
@@ -94,7 +73,6 @@ function HeroSection({ heroMedia }: { heroMedia?: HeroMedia }) {
           </div>
         </div>
       </div>
-      {/* Cameroon flag stripe accent */}
       <div className="absolute bottom-0 left-0 right-0 flex h-2">
         <div className="flex-1 bg-green-500" />
         <div className="flex-1 bg-red-600" />
@@ -105,10 +83,11 @@ function HeroSection({ heroMedia }: { heroMedia?: HeroMedia }) {
 }
 
 function StatsSection() {
+  const t = useTranslations("home");
   const stats = [
-    { icon: <Globe2 size={28} />, value: "2", label: "Länder" },
-    { icon: <Users size={28} />, value: "100+", label: "Mitglieder" },
-    { icon: <Calendar size={28} />, value: "20+", label: "Jahre" },
+    { icon: <Globe2 size={28} />, value: "2", label: t("stats_countries") },
+    { icon: <Users size={28} />, value: "100+", label: t("stats_members") },
+    { icon: <Calendar size={28} />, value: "20+", label: t("stats_years") },
   ];
   return (
     <section className="bg-white border-b">
@@ -129,49 +108,144 @@ function StatsSection() {
 
 function AboutSection() {
   const t = useTranslations("about");
+
+  const activities = [
+    { icon: Theater,        label: "Théâtre & Danse" },
+    { icon: Music,          label: "Musique" },
+    { icon: Shirt,          label: "Mode" },
+    { icon: BookOpen,       label: "Littérature" },
+    { icon: UtensilsCrossed,label: "Gastronomie" },
+    { icon: Heart,          label: "Solidarité" },
+  ];
+
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t("title")}</h2>
-            <p className="text-gray-600 mb-6 leading-relaxed">{t("description")}</p>
-            <h3 className="text-xl font-semibold text-green-700 mb-2">{t("activities_title")}</h3>
-            <p className="text-gray-600 mb-6 leading-relaxed">{t("activities_text")}</p>
+
+        {/* Section label */}
+        <div className="flex items-center gap-3 mb-10">
+          <span className="inline-block w-10 h-1 rounded-full bg-green-600" />
+          <span className="text-green-700 font-semibold text-sm uppercase tracking-widest">
+            {t("title")}
+          </span>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+
+          {/* Left — text + activities */}
+          <div className="flex flex-col gap-6">
+
+            {/* Description */}
+            <p className="text-gray-600 text-lg leading-relaxed">
+              {t("description")}
+            </p>
+
+            {/* Activities text */}
+            <p className="text-gray-500 leading-relaxed">
+              {t("activities_text")}
+            </p>
+
+            {/* Highlight quote */}
+            <blockquote className="border-l-4 border-green-500 pl-5 py-1">
+              <p className="text-green-900 font-medium italic leading-relaxed">
+                "Ensemble, nous construisons des ponts culturels entre l'Allemagne et le Cameroun."
+              </p>
+            </blockquote>
+
+            {/* Activities heading */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span className="w-1 h-6 bg-green-600 rounded-full inline-block" />
+                {t("activities_title")}
+              </h3>
+
+              {/* Activity chips */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {activities.map(({ icon: Icon, label }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-2.5 bg-green-50 border border-green-100 rounded-xl px-3 py-2.5 text-sm font-medium text-green-800"
+                  >
+                    <Icon size={16} className="text-green-600 shrink-0" />
+                    {label}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mini stats row */}
+            <div className="flex gap-6 py-4 border-y border-gray-100">
+              {[
+                { value: "2", label: "Pays" },
+                { value: "100+", label: "Membres" },
+                { value: "20+", label: "Ans" },
+              ].map(({ value, label }) => (
+                <div key={label} className="text-center">
+                  <div className="text-2xl font-bold text-green-700">{value}</div>
+                  <div className="text-xs text-gray-500 mt-0.5">{label}</div>
+                </div>
+              ))}
+            </div>
+
             <Link
               href="/wer-sind-wir"
-              className="inline-flex items-center gap-2 text-green-700 font-semibold hover:underline"
+              className="self-start inline-flex items-center gap-2 px-6 py-3 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-full transition-colors"
             >
               {t("read_more")} <ArrowRight size={16} />
             </Link>
           </div>
-          <div className="relative rounded-2xl h-64 md:h-80 overflow-hidden shadow-lg">
-            <Image
-              src="/images/apropo.jpg"
-              alt="About Eyes on Cameroon"
-              fill
-              className="object-cover"
-            />
+
+          {/* Right — image with decorative frame */}
+          <div className="relative">
+            {/* Decorative background square */}
+            <div className="absolute -top-4 -right-4 w-full h-full rounded-2xl bg-green-100 -z-10" />
+            <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5">
+              <Image
+                src="/images/apropo.jpg"
+                alt="About Eyes on Cameroon"
+                width={0}
+                height={0}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="w-full h-auto"
+              />
+            </div>
+            {/* Cameroon flag colors bar */}
+            <div className="flex h-1.5 rounded-full overflow-hidden mt-4">
+              <div className="flex-1 bg-green-500" />
+              <div className="flex-1 bg-red-600" />
+              <div className="flex-1 bg-yellow-400" />
+            </div>
           </div>
+
         </div>
       </div>
     </section>
   );
 }
 
-async function NewsSection() {
-  const t = await getTranslations("news");
+async function NewsSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "news" });
 
-  // Fetch articles from Supabase API
   let articles: Array<{ id: string; title: string; slug: string; published_at: string; excerpt?: string; cover_url?: string }> = [];
   try {
     const supabase = await createClient();
-    const { data } = await supabase
+    const { data: localeData } = await supabase
       .from("articles")
       .select("id, title, slug, published_at, excerpt, cover_url")
+      .eq("locale", locale)
       .order("published_at", { ascending: false })
       .limit(3);
-    articles = data ?? [];
+
+    if (localeData && localeData.length > 0) {
+      articles = localeData;
+    } else {
+      const { data: allData } = await supabase
+        .from("articles")
+        .select("id, title, slug, published_at, excerpt, cover_url")
+        .order("published_at", { ascending: false })
+        .limit(3);
+      articles = allData ?? [];
+    }
   } catch {
     console.error("Failed to fetch articles");
   }
@@ -196,13 +270,15 @@ async function NewsSection() {
               <article key={article.id} className="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
                 {article.cover_url ? (
                   <div className="relative h-40">
-                    <Image src={article.cover_url} alt={article.title} fill className="object-cover" />
+                    <Image src={article.cover_url} alt={article.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover object-top" />
                   </div>
                 ) : (
                   <PlaceholderImage className="h-40" label={article.title} />
                 )}
                 <div className="p-5">
-                  <p className="text-xs text-gray-400 mb-2">{article.published_at}</p>
+                  <p className="text-xs text-gray-400 mb-2">
+                    {new Date(article.published_at).toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}
+                  </p>
                   <h3 className="font-bold text-gray-900 mb-2">{article.title}</h3>
                   <p className="text-sm text-gray-600 mb-4 line-clamp-2">{article.excerpt || ""}</p>
                   <Link href={`/aktuelles/${article.slug || article.id}`} className="text-green-700 text-sm font-semibold hover:underline">
@@ -218,16 +294,29 @@ async function NewsSection() {
   );
 }
 
-async function BannersSection() {
+async function BannersSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "events" });
+
   let banners: Array<{ id: string; title: string | null; media_url: string; media_type: "image" | "video"; link_url: string | null }> = [];
   try {
     const supabase = await createClient();
-    const { data } = await supabase
+    const { data: localeData } = await supabase
       .from("pub_banners")
       .select("id, title, media_url, media_type, link_url")
       .eq("active", true)
+      .eq("locale", locale)
       .order("sort_order", { ascending: true });
-    banners = data ?? [];
+
+    if (localeData && localeData.length > 0) {
+      banners = localeData;
+    } else {
+      const { data: allData } = await supabase
+        .from("pub_banners")
+        .select("id, title, media_url, media_type, link_url")
+        .eq("active", true)
+        .order("sort_order", { ascending: true });
+      banners = allData ?? [];
+    }
   } catch {
     /* table may not exist yet */
   }
@@ -237,26 +326,39 @@ async function BannersSection() {
   return (
     <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link href="/veranstaltungen" className="text-xs font-semibold uppercase tracking-widest text-green-700 mb-4 hover:underline block">Événements à la une</Link>
+        <Link href="/veranstaltungen" className="text-xs font-semibold uppercase tracking-widest text-green-700 mb-4 hover:underline block">
+          {t("featured")}
+        </Link>
         <BannerSlider banners={banners} />
       </div>
     </section>
   );
 }
 
-async function EventsSection() {
-  const t = await getTranslations("events");
+async function EventsSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "events" });
 
-  // Fetch events from Supabase API
   let events: Array<{ id: string; title: string; date: string; location: string; description?: string; image_url?: string }> = [];
   try {
     const supabase = await createClient();
-    const { data } = await supabase
+    const { data: localeData } = await supabase
       .from("events")
       .select("id, title, date, location, description, image_url")
+      .eq("locale", locale)
       .order("date", { ascending: true })
       .limit(2);
-    events = data ?? [];
+
+    if (localeData && localeData.length > 0) {
+      events = localeData;
+    } else {
+      // Fallback: show all events if none exist for this locale yet
+      const { data: allData } = await supabase
+        .from("events")
+        .select("id, title, date, location, description, image_url")
+        .order("date", { ascending: true })
+        .limit(2);
+      events = allData ?? [];
+    }
   } catch {
     console.error("Failed to fetch events");
   }
@@ -281,7 +383,7 @@ async function EventsSection() {
               <Link key={event.id} href={`/veranstaltungen/${event.id}`} className="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow block">
                 {event.image_url ? (
                   <div className="relative h-40">
-                    <Image src={event.image_url} alt={event.title} fill className="object-cover" />
+                    <Image src={event.image_url} alt={event.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover object-top" />
                   </div>
                 ) : (
                   <div className="h-40 bg-green-100 flex items-center justify-center">
@@ -291,7 +393,7 @@ async function EventsSection() {
                 <div className="p-5">
                   <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
                     <Calendar size={14} />
-                    <span>{event.date}</span>
+                    <span>{new Date(event.date).toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" })}</span>
                     <span>·</span>
                     <span>{event.location}</span>
                   </div>
@@ -327,8 +429,13 @@ function DonateSection() {
   );
 }
 
-export default async function HomePage() {
-  // Fetch hero media settings
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   let heroMedia: HeroMedia | undefined;
   try {
     const supabase = await createClient();
@@ -343,12 +450,12 @@ export default async function HomePage() {
 
   return (
     <>
+      <PromoPopup />
       <HeroSection heroMedia={heroMedia} />
-      <StatsSection />
       <AboutSection />
-      <EventsSection />
-      <BannersSection />
-      <NewsSection />
+      <EventsSection locale={locale} />
+      <BannersSection locale={locale} />
+      <NewsSection locale={locale} />
       <DonateSection />
     </>
   );

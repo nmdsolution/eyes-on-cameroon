@@ -31,12 +31,28 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
 
-    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
 
     if (signInError) {
       setError(t("error"));
       return;
+    }
+
+    // Check if admin → redirect to dashboard
+    const userId = signInData.user?.id;
+    if (userId) {
+      const { data: member } = await supabase
+        .from("members")
+        .select("is_admin")
+        .eq("id", userId)
+        .single();
+
+      if (member?.is_admin) {
+        router.push("/admin");
+        router.refresh();
+        return;
+      }
     }
 
     const redirect = searchParams.get("redirect") ?? `/${locale}/profil`;
