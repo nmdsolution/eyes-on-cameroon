@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
         hostname: "*.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      {
+        protocol: "https",
+        hostname: "media2.dev.to",
+      },
+      {
+        protocol: "https",
+        hostname: "dev-to-uploads.s3.us-east-2.amazonaws.com",
+      },
     ],
   },
 };

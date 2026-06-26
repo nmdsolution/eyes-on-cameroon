@@ -9,7 +9,6 @@ import FeaturedEventsSlider from "@/components/FeaturedEventsSlider";
 import AdBanner from "@/components/AdBanner";
 
 type EventRow = {
-  slug?: string | null;
   title: string;
   description: string | null;
   date: string;
@@ -50,8 +49,7 @@ export default async function EventPage({
     if (baseEvent) {
       event = baseEvent;
 
-      // Optional: if slug column exists and event has a slug,
-      // try to find a locale-specific translation
+      // If event has a slug, try to find the locale-specific translation
       try {
         const { data: withSlug } = await supabase
           .from("events")
@@ -70,7 +68,7 @@ export default async function EventPage({
           if (localeEvent) event = localeEvent;
         }
       } catch {
-        // slug column not yet migrated — keep original event
+        // slug column not yet available — keep original event
       }
     }
 

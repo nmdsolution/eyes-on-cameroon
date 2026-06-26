@@ -86,8 +86,7 @@
     "featured_events": "Événements à la une"
   },
   "events": {
-    "title": "Événements",
-    "subtitle": "Prochains événements et activités",
+   
     "no_events": "Aucun événement à venir",
     "all_events": "Tous les événements",
     "featured": "Événements à la une",

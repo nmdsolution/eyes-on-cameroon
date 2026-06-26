@@ -4,9 +4,21 @@ import { useState } from "react";
 import { Plus, Pencil, Trash2, Loader2, X, Check } from "lucide-react";
 import ImageUpload from "@/components/ImageUpload";
 
+function toSlug(text: string) {
+  return text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 type Event = {
   id: string;
   slug: string | null;
+  featured: boolean;
   title: string;
   description: string | null;
   date: string;
@@ -22,6 +34,7 @@ type FormData = Omit<Event, "id" | "created_at">;
 
 const emptyForm: FormData = {
   slug: "",
+  featured: false,
   title: "",
   description: "",
   date: new Date().toISOString().slice(0, 16),
@@ -54,10 +67,12 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
   const [uploading, setUploading] = useState(0);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [slugLocked, setSlugLocked] = useState(false);
 
   function openCreate() {
     setEditing(null);
     setForm(emptyForm);
+    setSlugLocked(false);
     setShowForm(true);
     setError(null);
   }
@@ -66,6 +81,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
     setEditing(ev);
     setForm({
       slug: ev.slug ?? "",
+      featured: ev.featured ?? false,
       title: ev.title,
       description: ev.description ?? "",
       date: ev.date ? new Date(ev.date).toISOString().slice(0, 16) : "",
@@ -75,8 +91,22 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
       content_img: ev.content_img ?? "",
       locale: ev.locale,
     });
+    setSlugLocked(!!ev.slug);
     setShowForm(true);
     setError(null);
+  }
+
+  function handleTitleChange(title: string) {
+    setForm((f) => ({
+      ...f,
+      title,
+      slug: slugLocked ? f.slug : toSlug(title),
+    }));
+  }
+
+  function handleSlugChange(slug: string) {
+    setSlugLocked(true);
+    setForm((f) => ({ ...f, slug }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -148,10 +178,26 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid sm:grid-cols-3 gap-4">
               <Field label="Title" required>
-                <input className={inputCls} value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required />
+                <input className={inputCls} value={form.title} onChange={(e) => handleTitleChange(e.target.value)} required />
               </Field>
               <Field label="Slug (links translations)">
-                <input className={inputCls} placeholder="e.g. steve-bianca-2026" value={form.slug ?? ""} onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))} />
+                <input
+                  className={inputCls}
+                  placeholder="auto-generated from title"
+                  value={form.slug ?? ""}
+                  onChange={(e) => handleSlugChange(e.target.value)}
+                />
+              </Field>
+              <Field label="À la une">
+                <label className="flex items-center gap-2.5 h-[38px] cursor-pointer select-none">
+                  <div
+                    onClick={() => setForm((f) => ({ ...f, featured: !f.featured }))}
+                    className={`relative w-10 h-6 rounded-full transition-colors ${form.featured ? "bg-green-600" : "bg-gray-300"}`}
+                  >
+                    <span className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-transform ${form.featured ? "translate-x-5" : "translate-x-1"}`} />
+                  </div>
+                  <span className="text-sm text-gray-600">{form.featured ? "Oui" : "Non"}</span>
+                </label>
               </Field>
               <Field label="Location">
                 <input className={inputCls} value={form.location ?? ""} onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))} />
@@ -216,6 +262,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Date</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Location</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Locale</th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">À la une</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
@@ -226,6 +273,9 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
                   <td className="px-4 py-3 text-gray-500">{new Date(ev.date).toLocaleDateString()}</td>
                   <td className="px-4 py-3 text-gray-500">{ev.location ?? "—"}</td>
                   <td className="px-4 py-3"><span className="uppercase text-xs font-semibold bg-gray-100 px-2 py-0.5 rounded">{ev.locale}</span></td>
+                  <td className="px-4 py-3">
+                    {ev.featured && <span className="text-xs font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">★ Une</span>}
+                  </td>
                   <td className="px-4 py-3 flex gap-2 justify-end">
                     <button onClick={() => openEdit(ev)} className="p-1.5 text-gray-400 hover:text-green-700 hover:bg-green-50 rounded-lg"><Pencil size={15} /></button>
                     <button onClick={() => handleDelete(ev.id)} disabled={deletingId === ev.id} className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-40">
