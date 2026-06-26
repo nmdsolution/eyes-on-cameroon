@@ -40,6 +40,7 @@ async function EventsSection({ locale }: { locale: string }) {
       .from("events")
       .select("id, title, date, location, description, image_url, featured")
       .eq("locale", locale)
+      .order("sort_order", { ascending: true })
       .order("featured", { ascending: false })
       .order("date", { ascending: true })
       .limit(4);
@@ -68,28 +69,25 @@ async function EventsSection({ locale }: { locale: string }) {
   ];
 
   return (
-    <section className="bg-[#1C1C1E] px-20 pt-20 pb-[88px]">
+    <section className="bg-[#1C1C1E] px-4 sm:px-8 lg:px-20 pt-8 sm:pt-12 lg:pt-20 pb-10 sm:pb-14 lg:pb-[88px]">
 
       {events.length === 0 ? (
         <p className="text-[#8A8275] text-center py-8">{t("no_events")}</p>
       ) : (
-        <div
-          className="grid gap-[3px]"
-          style={{ gridTemplateColumns: secondary.length > 0 ? "3fr 2fr" : "1fr" }}
-        >
+        <div className={`grid gap-[3px] ${secondary.length > 0 ? "grid-cols-1 lg:grid-cols-[3fr_2fr]" : "grid-cols-1"}`}>
           {/* Featured event */}
           <Link
             href={`/veranstaltungen/${featured.id}`}
             className="flex flex-col bg-white/[0.03] border border-white/[0.09] overflow-hidden hover:border-white/20 transition-colors group"
           >
-            <div className="relative aspect-[4/3] overflow-hidden flex-shrink-0 bg-[#111]">
+            <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] overflow-hidden flex-shrink-0 bg-[#111]">
               {featured.image_url ? (
                 <>
                   <Image
                     src={featured.image_url}
                     alt={featured.title}
                     fill
-                    sizes="60vw"
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                     priority
                   />
@@ -107,12 +105,12 @@ async function EventsSection({ locale }: { locale: string }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
                 </>
               )}
-              <div className="absolute bottom-0 left-0 right-0 px-7 pb-6 flex items-end justify-between z-10">
+              <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-7 pb-4 sm:pb-6 flex items-end justify-between z-10">
                 <span className="inline-flex items-center self-start bg-[#E8A900] text-[#1C1C1E] text-[9px] font-bold tracking-[0.1em] uppercase px-[11px] py-[5px]">
                   {t("featured")}
                 </span>
                 <div className="text-right">
-                  <span className="font-serif text-[58px] leading-none tracking-[-0.04em] text-white tabular-nums block">
+                  <span className="font-serif text-[40px] sm:text-[58px] leading-none tracking-[-0.04em] text-white tabular-nums block">
                     {new Date(featured.date).getDate()}
                   </span>
                   <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-white/55 block">
@@ -124,15 +122,15 @@ async function EventsSection({ locale }: { locale: string }) {
                 </div>
               </div>
             </div>
-            <div className="px-7 py-7 flex flex-col gap-2.5 flex-1">
+            <div className="px-4 sm:px-7 py-5 sm:py-7 flex flex-col gap-2.5 flex-1">
               <p className="text-[10px] font-semibold tracking-[0.1em] uppercase text-[#E8A900]">
                 {featured.location}
               </p>
-              <h3 className="font-serif text-[28px] leading-[1.25] tracking-[-0.015em] text-white text-balance">
+              <h3 className="font-serif text-[22px] sm:text-[28px] leading-[1.25] tracking-[-0.015em] text-white text-balance">
                 {featured.title}
               </h3>
               {featured.description && (
-                <p className="text-[13.5px] leading-[1.65] text-[#8A8275] line-clamp-3">
+                <p className="text-[13px] sm:text-[13.5px] leading-[1.65] text-[#8A8275] line-clamp-3">
                   {featured.description}
                 </p>
               )}
@@ -144,21 +142,20 @@ async function EventsSection({ locale }: { locale: string }) {
 
           {/* Sidebar */}
           {secondary.length > 0 && (
-            <div className="flex flex-col gap-[3px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-[3px]">
               {secondary.map((event, i) => (
                 <Link
                   key={event.id}
                   href={`/veranstaltungen/${event.id}`}
-                  className="flex flex-col bg-white/[0.04] border border-white/[0.07] flex-1 overflow-hidden hover:bg-white/[0.09] transition-colors"
+                  className="flex flex-col bg-white/[0.04] border border-white/[0.07] overflow-hidden hover:bg-white/[0.09] transition-colors"
                 >
-                  {/* Image pleine largeur */}
-                  <div className="relative w-full h-28 overflow-hidden">
+                  <div className="relative w-full h-28 sm:h-32 overflow-hidden">
                     {event.image_url ? (
                       <Image
                         src={event.image_url}
                         alt={event.title}
                         fill
-                        sizes="40vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 40vw"
                         className="object-cover object-top"
                       />
                     ) : (
@@ -168,7 +165,6 @@ async function EventsSection({ locale }: { locale: string }) {
                       />
                     )}
                   </div>
-                  {/* Texte en dessous */}
                   <div className="px-4 py-3 flex flex-col gap-1.5">
                     <p className="text-[10px] font-bold text-[#E8A900] tracking-[0.06em] tabular-nums">
                       {new Date(event.date).toLocaleDateString(locale, {

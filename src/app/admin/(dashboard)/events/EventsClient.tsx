@@ -19,6 +19,7 @@ type Event = {
   id: string;
   slug: string | null;
   featured: boolean;
+  sort_order: number;
   title: string;
   description: string | null;
   date: string;
@@ -35,6 +36,7 @@ type FormData = Omit<Event, "id" | "created_at">;
 const emptyForm: FormData = {
   slug: "",
   featured: false,
+  sort_order: 0,
   title: "",
   description: "",
   date: new Date().toISOString().slice(0, 16),
@@ -82,6 +84,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
     setForm({
       slug: ev.slug ?? "",
       featured: ev.featured ?? false,
+      sort_order: ev.sort_order ?? 0,
       title: ev.title,
       description: ev.description ?? "",
       date: ev.date ? new Date(ev.date).toISOString().slice(0, 16) : "",
@@ -199,6 +202,15 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
                   <span className="text-sm text-gray-600">{form.featured ? "Oui" : "Non"}</span>
                 </label>
               </Field>
+              <Field label="Ordre d'affichage">
+                <input
+                  type="number"
+                  className={inputCls}
+                  value={form.sort_order}
+                  onChange={(e) => setForm((f) => ({ ...f, sort_order: parseInt(e.target.value) || 0 }))}
+                  placeholder="0"
+                />
+              </Field>
               <Field label="Location">
                 <input className={inputCls} value={form.location ?? ""} onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))} />
               </Field>
@@ -263,6 +275,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Location</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Locale</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">À la une</th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">Ordre</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
@@ -276,6 +289,7 @@ export default function EventsClient({ initialData }: { initialData: Event[] }) 
                   <td className="px-4 py-3">
                     {ev.featured && <span className="text-xs font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">★ Une</span>}
                   </td>
+                  <td className="px-4 py-3 text-gray-500 tabular-nums">{ev.sort_order ?? 0}</td>
                   <td className="px-4 py-3 flex gap-2 justify-end">
                     <button onClick={() => openEdit(ev)} className="p-1.5 text-gray-400 hover:text-green-700 hover:bg-green-50 rounded-lg"><Pencil size={15} /></button>
                     <button onClick={() => handleDelete(ev.id)} disabled={deletingId === ev.id} className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-40">
