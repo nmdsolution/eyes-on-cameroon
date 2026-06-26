@@ -149,15 +149,16 @@ async function EventsSection({ locale }: { locale: string }) {
                 <Link
                   key={event.id}
                   href={`/veranstaltungen/${event.id}`}
-                  className="flex overflow-hidden bg-white/[0.04] border border-white/[0.07] flex-1 hover:bg-white/[0.09] transition-colors"
+                  className="flex flex-col bg-white/[0.04] border border-white/[0.07] flex-1 overflow-hidden hover:bg-white/[0.09] transition-colors"
                 >
-                  <div className="w-[120px] flex-shrink-0 relative overflow-hidden">
+                  {/* Image pleine largeur */}
+                  <div className="relative w-full h-28 overflow-hidden">
                     {event.image_url ? (
                       <Image
                         src={event.image_url}
                         alt={event.title}
                         fill
-                        sizes="120px"
+                        sizes="40vw"
                         className="object-cover object-top"
                       />
                     ) : (
@@ -167,8 +168,9 @@ async function EventsSection({ locale }: { locale: string }) {
                       />
                     )}
                   </div>
-                  <div className="px-[18px] py-4 flex flex-col justify-between gap-2 flex-1 min-w-0">
-                    <p className="text-[11px] font-bold text-[#E8A900] tracking-[0.06em] tabular-nums">
+                  {/* Texte en dessous */}
+                  <div className="px-4 py-3 flex flex-col gap-1.5">
+                    <p className="text-[10px] font-bold text-[#E8A900] tracking-[0.06em] tabular-nums">
                       {new Date(event.date).toLocaleDateString(locale, {
                         day: "numeric",
                         month: "short",
@@ -177,7 +179,7 @@ async function EventsSection({ locale }: { locale: string }) {
                       {" · "}
                       {event.location}
                     </p>
-                    <h4 className="text-[14px] font-semibold text-white leading-[1.3] line-clamp-2">
+                    <h4 className="text-[13px] font-semibold text-white leading-[1.3] line-clamp-2">
                       {event.title}
                     </h4>
                   </div>
